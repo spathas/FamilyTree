@@ -1,4 +1,5 @@
 import com.opencsv.CSVReader;
+
 //import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Font;
 import guru.nidi.graphviz.attribute.Rank;
@@ -6,45 +7,45 @@ import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
 //import static guru.nidi.graphviz.attribute.Attributes.attr;
 import static guru.nidi.graphviz.attribute.Rank.RankDir.TOP_TO_BOTTOM;
 import static guru.nidi.graphviz.model.Factory.*;
 //import static guru.nidi.graphviz.model.Factory.node;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class CSVReaderExample {
 
     public static void main(String[] args) throws IOException {
 
         String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
-        CSVReader reader;
-        Set<Human> man = new HashSet<>();
-        Set<Relation> rel = new HashSet<>();
+        CSVReader familyTree;
+        SortedSet<Person> person = new TreeSet<>();
+        ArrayList<Family> rel = new ArrayList<>();
 
         //CSV to Objects
         try {
-            reader = new CSVReader(new FileReader(csvFile));
+            familyTree = new CSVReader(new FileReader(csvFile));
             String[] line;
-            while ((line = reader.readNext()) != null) {
+            while ((line = familyTree.readNext()) != null) {
                 if(line[line.length -1].equals("") || line[line.length -1] == null) {
-                    man.add(new Human(line[0], line[1]));
+                    person.add(new Person(line[0], line[1]));
                 }
                 else {
-                    rel.add(new Relation(line[0], line[1], line[2]));
+                    rel.add(new Family(line[0], line[1], line[2]));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Humans");
-        System.out.println(man.toString());
+        System.out.println("People");
+        System.out.println(person.toString());
         System.out.println("________________________________________________________________\n");
         System.out.println("Relationships");
         System.out.println(rel.toString());
