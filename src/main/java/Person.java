@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class Person implements Comparable<Person> {
 
     String name;
     String gender;
+
+    ArrayList Family = new ArrayList<>();
 
     public Person(String name, String gender) {
         this.name = name;
