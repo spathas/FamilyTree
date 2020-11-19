@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Person implements Comparable<Person> {
@@ -16,14 +18,16 @@ public class Person implements Comparable<Person> {
         return name;
     }
 
+    public String getGender() { return gender; }
     //Print list with alphabet priority
+
     @Override
     public int compareTo(Person o) {
         //Sorted by name.
         return this.name.compareTo(o.name);
     }
-
     //To String printing
+
     @Override
     public String toString() {
         return "Person{" + "name=" + name + ", gander='" + gender + '\'' +  "}\n";

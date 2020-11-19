@@ -2,8 +2,4 @@ digraph "Baratheon" {
 graph ["rankdir"="TB"]
 node ["fontname"="Arial"]
 edge ["class"="link-class"]
-"GrandmaEmily" ["color"="red"]
-"GrandmaEmily" -> "Euthumia"
-"GrandmaEmily" -> "Andreas"
-"Andreas" -> "Nikos" ["weight"="5","style"="dashed"]
 }
