@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="FamilyTree" target="1.15" />
+      <module name="FamilyTree" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
