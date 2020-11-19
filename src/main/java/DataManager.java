@@ -23,6 +23,9 @@ public class DataManager {
 
     public static void main(String[] args) throws IOException {
 
+//        Wrong type of file.
+//        String csvFile = "/home/cspathas/Desktop/testfile.ods";
+
         String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> person = new TreeSet<>();
@@ -40,48 +43,50 @@ public class DataManager {
 //                    rel.add(new Family(line[0], line[1], line[2]));
 //                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        System.out.println("People");
-        System.out.println(person.toString());
-        System.out.println("________________________________________________________________\n");
-        System.out.println("Relationships");
-        System.out.println(rel.toString());
+            System.out.println("People");
+            System.out.println(person.toString());
+            System.out.println("________________________________________________________________\n");
+            System.out.println("Relationships");
+            System.out.println(rel.toString());
 
-        //////////TXT GENERATE FILE////////////////////////////////
-        try {
-            FileWriter myWriter = new FileWriter("names.txt");
-            for(Person per : person) {
-                myWriter.write("Name: " + per.getName() + ", Gender: " + per.getGender() + ",\n");
+            //////////TXT GENERATE FILE////////////////////////////////
+            try {
+                FileWriter myWriter = new FileWriter("names.txt");
+                for(Person per : person) {
+                    myWriter.write("Name: " + per.getName() + ", Gender: " + per.getGender() + ",\n");
+                }
+                myWriter.write("\n\n The length of list is: " + person.size());
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
-            myWriter.write("\n\n The length of list is: " + person.size());
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("\"Check the path or type of CSV file.\"");
             e.printStackTrace();
         }
+
 
         ///////////////GRAPHVIZ/////////////////////////////////////////
-        Graph g = graph("Baratheon").directed()
-                .graphAttr().with(Rank.dir(TOP_TO_BOTTOM))
-                .nodeAttr().with(Font.name("Arial"))
-                .linkAttr().with("class", "link-class")
-                .with(
-                        //
-                );
-
-        Graphviz
-                .fromGraph(g)
-                .height(500)
-                .render(Format.DOT).toFile(new File("./ex1.dot"));
-
-        Graphviz
-                .fromGraph(g)
-                .height(500)
-                .render(Format.PNG).toFile(new File("./ex1.png"));
+//        Graph g = graph("Baratheon").directed()
+//                .graphAttr().with(Rank.dir(TOP_TO_BOTTOM))
+//                .nodeAttr().with(Font.name("Arial"))
+//                .linkAttr().with("class", "link-class")
+//                .with(
+//                        //
+//                );
+//
+//        Graphviz
+//                .fromGraph(g)
+//                .height(500)
+//                .render(Format.DOT).toFile(new File("./ex1.dot"));
+//
+//        Graphviz
+//                .fromGraph(g)
+//                .height(500)
+//                .render(Format.PNG).toFile(new File("./ex1.png"));
 
 
     }
