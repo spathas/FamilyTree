@@ -1,17 +1,34 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Person implements Comparable<Person> {
 
     String name;
     String gender;
 
-    ArrayList Family = new ArrayList<>();
+//    ArrayList<Family> Family = new ArrayList<>();
 
     public Person(String name, String gender) {
         this.name = name;
         this.gender = gender;
+    }
+
+    public static Person findPerson(TreeSet<Person> person, String pName){
+        for(Person per : person) {
+            if(pName.equals(per.name)) {
+                return per;
+            }
+        }
+        return null;
+    }
+
+    public static boolean isPerson(TreeSet<Person> person, String pName) {
+        for(Person per : person) {
+            if(!pName.equals(per.name)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getName() {
