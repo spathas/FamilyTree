@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Relationship {
 
     String firstName;
@@ -8,6 +10,12 @@ public class Relationship {
         this.firstName = firstName;
         this.lastName = lastName;
         this.relationship = relationship;
+    }
+
+    public static boolean checkRelationship(String relationship) {
+        if(relationship == "father" || relationship == "mother" || relationship == "husband" || relationship == "wife")
+            return true;
+        return false;
     }
 
     @Override

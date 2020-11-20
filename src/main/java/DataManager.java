@@ -52,8 +52,12 @@ public class DataManager {
                     people.add(new Person(line[0], line[1]));
                 }
                 else {
+                    //Create a stack of all relationships
                     relationships.add(new Relationship(line[0],line[1],line[2]));
 
+                    if(Relationship.checkRelationship(line[1]))
+
+                    //Create new families
                     if(Person.isPerson(people, line[0]) && Person.isPerson(people, line[2])) {
                         System.out.println("Person with name: " + line[0] + ", or Person with name: " + line[2] + "does not exist as people object");
                     } else {
