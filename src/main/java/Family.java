@@ -27,6 +27,7 @@ public class Family {
     public static void isParent(Person firstPerson, Person lastPerson, String rel, ArrayList<Family> families) {
         if(rel.equals("father") || rel.equals("mother")) {
 
+
             Family specificFamily = null;
             for(Family fam: families) {
                 //Find specific families and add the child
@@ -34,7 +35,7 @@ public class Family {
                 specificFamily = fam;
             }
 
-            assert specificFamily != null : "There is an error in method isParent with insert ArrayList family";
+            assert( specificFamily != null);
             for(Person child: specificFamily.children)
                 if (lastPerson.getName().equals(child.getName())) {
                     return;

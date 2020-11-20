@@ -28,14 +28,35 @@ public class DataManager {
             e.printStackTrace();
         }
 
-}
+    }
+
+    public static void createNewFamily( ArrayList<Family> families, Person firstPerson, Person lastPerson, String rel, int lineCount) {
+        //Checking csv for wrong input data
+        if(!Relationship.checkRelationship(firstPerson, rel)) {
+            System.out.println("There is a bad relationship in CSV file.\nPlease check your CSV file at line: " + lineCount + ".");
+            System.exit(-1);
+        }else {
+
+            //Create new families
+                Family.isPartners(firstPerson, lastPerson, rel, families);
+                Family.isParent(firstPerson, lastPerson, rel, families);
+
+        }
+    }
+
+    public static void createPerson(TreeSet<Person> people, String name, String gender, int lineCount) {
+        if(gender.equals("man") || gender.equals("woman"))
+            people.add(new Person(name, gender));
+        else {
+            System.out.println("There is an error on CSV file to line: " + lineCount + ".");
+            System.exit(-1);
+        }
+    }
 
     public static void main(String[] args) {
 
-//        Wrong type of file.
-//        String csvFile = "/home/cspathas/Desktop/testfile.ods";
-
-        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+//        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+        String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
         ArrayList<Relationship> relationships = new ArrayList<>();
@@ -45,31 +66,32 @@ public class DataManager {
 
         ////////////CSV READER///////////////////////////////////////
         try {
+
             familyTree = new CSVReader(new FileReader(csvFile));
             String[] line;
+            int lineCount = 0;
+
             while ((line = familyTree.readNext()) != null) {
+                lineCount++;
+
                 if(line[line.length -1].equals("") || line[line.length -1] == null) {
-                    people.add(new Person(line[0], line[1]));
+                    String name = line[0];
+                    String gender = line[1];
+
+                    createPerson(people, name, gender, lineCount);
                 }
                 else {
+                    //Find people objects base on 2 names by CSV line and relationship between them.
+                    Person firstPerson = Person.findPerson(people, line[0]);
+                    Person lastPerson = Person.findPerson(people, line[2]);
+                    String rel = line[1];
+
                     //Create a stack of all relationships
-                    relationships.add(new Relationship(line[0],line[1],line[2]));
+                    assert firstPerson != null && lastPerson != null : "Person objects in a relationship line of csv have error";
+                    relationships.add( new Relationship( firstPerson.getName(), rel, lastPerson.getName() ) );
 
-                    if(Relationship.checkRelationship(line[1]))
-
-                    //Create new families
-                    if(Person.isPerson(people, line[0]) && Person.isPerson(people, line[2])) {
-                        System.out.println("Person with name: " + line[0] + ", or Person with name: " + line[2] + "does not exist as people object");
-                    } else {
-
-                        //Find people objects base on 2 names by CSV line
-                        Person firstPerson = Person.findPerson(people, line[0]);
-                        Person lastPerson = Person.findPerson(people, line[2]);
-                        String rel = line[1];
-
-                        Family.isPartners(firstPerson, lastPerson, rel, families);
-                        Family.isParent(firstPerson, lastPerson, rel, families);
-                    }
+                    //Create a family object with existing data
+                    createNewFamily(families, firstPerson, lastPerson, rel, lineCount);
 
                 }
             }
