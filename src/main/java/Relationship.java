@@ -5,9 +5,9 @@ public class Relationship {
     String relationship;
 
     public Relationship(String firstName, String relationship, String lastName) {
-        firstName = firstName;
-        lastName = lastName;
-        relationship = relationship;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.relationship = relationship;
     }
 
     @Override
