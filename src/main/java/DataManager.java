@@ -38,7 +38,6 @@ public class DataManager {
         String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
-        ArrayList<String> relationships = new ArrayList<>();
         ArrayList<Family> families = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
