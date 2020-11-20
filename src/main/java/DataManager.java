@@ -38,6 +38,7 @@ public class DataManager {
         String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
+        ArrayList<Relationship> relationships = new ArrayList<>();
         ArrayList<Family> families = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
@@ -51,6 +52,8 @@ public class DataManager {
                     people.add(new Person(line[0], line[1]));
                 }
                 else {
+                    relationships.add(new Relationship(line[0],line[1],line[2]));
+
                     if(Person.isPerson(people, line[0]) && Person.isPerson(people, line[2])) {
                         System.out.println("Person with name: " + line[0] + ", or Person with name: " + line[2] + "does not exist as people object");
                     } else {
@@ -71,7 +74,11 @@ public class DataManager {
             System.out.println(people.toString());
             System.out.println("________________________________________________________________\n");
             System.out.println("Relationships");
+            System.out.println(relationships.toString());
+            System.out.println("________________________________________________________________\n");
+            System.out.println("Families");
             System.out.println(families.toString());
+            System.out.println("________________________________________________________________\n");
 
             //////////TXT GENERATE FILE////////////////////////////////
             // Make a scanner to give a choice.
