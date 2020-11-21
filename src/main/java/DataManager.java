@@ -33,8 +33,8 @@ public class DataManager {
 
     public static void main(String[] args) {
 
-//        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-        String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
+        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+//        String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
         Stack<Relationship> relationships = new Stack<>();

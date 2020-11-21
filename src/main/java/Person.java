@@ -8,6 +8,11 @@ public class Person implements Comparable<Person> {
 
 //    ArrayList<Family> Family = new ArrayList<>();
 
+    public Person() {
+        this.name = "Unknown";
+        this.gender = "Unknown";
+    }
+
     public Person(String name, String gender) {
         this.name = name;
         this.gender = gender;

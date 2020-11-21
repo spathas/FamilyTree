@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class Family {
 
     Person[] parents = new Person[2];
-    ArrayList<Person> children = new ArrayList<>();
+    Set<Person> children = new HashSet<>();
 
     public Family(Person father, Person mother) {
         this.parents[0] = father;
@@ -12,6 +14,12 @@ public class Family {
     }
 
     public Family(Person father, Person mother, Person child) {
+        if(father == null) {
+            father = new Person();
+        }
+        if(mother == null) {
+            mother = new Person();
+        }
         this.parents[0] = father;
         this.parents[1] = mother;
         this.children.add(child);
@@ -30,6 +38,14 @@ public class Family {
                     if (relationship.getLastPerson().getName().equals(child.getName()))
                         return family;
                 }
+        }
+        return null;
+    }
+
+    private static Family findFamily(ArrayList<Family> families, String firstName, String secondName) {
+        for(Family family: families) {
+            if( ( family.parents[0].getName().equals(firstName) && family.parents[1].getName().equals(secondName) ) || family.parents[1].getName().equals(firstName) && family.parents[0].getName().equals(secondName) )
+                return family;
         }
         return null;
     }
@@ -55,20 +71,24 @@ public class Family {
 
     private static void checkForCompletedFamily(Stack<Relationship> relationships, ArrayList<Family> families, Relationship rel, String parentType) {
         for(Relationship relationship : relationships) {
-            if (relationship.getLastPerson().getName().equals(rel.getLastPerson().getName())) {
-                Family famFather = Family.findFamily(relationship, families);
-                if (famFather != null) {
-                    if (famFather.parents[1].equals(rel.getFirstPerson().getName())) {
-                        famFather.children.add(rel.getLastPerson());
-                    }else {
-                        if (parentType.equals("father"))
-                            families.add(new Family(null, rel.getFirstPerson(), rel.getLastPerson()));
-                        else families.add(new Family(rel.getFirstPerson(), null, rel.getLastPerson()));
-                    }
+            if (relationship.getLastPerson().getName().equals(rel.getLastPerson().getName()) && !relationship.getFirstPerson().getName().equals(rel.getFirstPerson().getName())) {
+                Family fam = Family.findFamily(families, relationship.getFirstPerson().getName(), rel.getFirstPerson().getName());
+                if (fam != null) {
+                        fam.children.add(rel.getLastPerson());
+                        return;
                 }
             }
         }
-
+        if (parentType.equals("father")) {
+            Family fam = findFamily(families, rel.getFirstPerson().getName(), "Unknown");
+            if(fam == null) families.add(new Family(null, rel.getFirstPerson(), rel.getLastPerson()));
+            else fam.children.add(rel.getLastPerson());
+        }
+        else {
+            Family fam = findFamily(families, rel.getFirstPerson().getName(), "Unknown");
+            if(fam == null) families.add(new Family(rel.getFirstPerson(), null, rel.getLastPerson()));
+            else fam.children.add(rel.getLastPerson());
+        }
     }
 
     // Insert children
