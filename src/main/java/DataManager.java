@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.TreeSet;
 
 public class DataManager {
@@ -30,36 +31,13 @@ public class DataManager {
 
     }
 
-    public static void createNewFamily( ArrayList<Family> families, Person firstPerson, Person lastPerson, String rel, int lineCount) {
-        //Checking csv for wrong input data
-        if(!Relationship.checkRelationship(firstPerson, rel)) {
-            System.out.println("There is a bad relationship in CSV file.\nPlease check your CSV file at line: " + lineCount + ".");
-            System.exit(-1);
-        }else {
-
-            //Create new families
-                Family.isPartners(firstPerson, lastPerson, rel, families);
-                Family.isParent(firstPerson, lastPerson, rel, families);
-
-        }
-    }
-
-    public static void createPerson(TreeSet<Person> people, String name, String gender, int lineCount) {
-        if(gender.equals("man") || gender.equals("woman"))
-            people.add(new Person(name, gender));
-        else {
-            System.out.println("There is an error on CSV file to line: " + lineCount + ".");
-            System.exit(-1);
-        }
-    }
-
     public static void main(String[] args) {
 
 //        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
         String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
-        ArrayList<Relationship> relationships = new ArrayList<>();
+        Stack<Relationship> relationships = new Stack<>();
         ArrayList<Family> families = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
@@ -78,7 +56,7 @@ public class DataManager {
                     String name = line[0];
                     String gender = line[1];
 
-                    createPerson(people, name, gender, lineCount);
+                    Person.createPerson(people, name, gender, lineCount);
                 }
                 else {
                     //Find people objects base on 2 names by CSV line and relationship between them.
@@ -86,15 +64,22 @@ public class DataManager {
                     Person lastPerson = Person.findPerson(people, line[2]);
                     String rel = line[1];
 
-                    //Create a stack of all relationships
-                    assert firstPerson != null && lastPerson != null : "Person objects in a relationship line of csv have error";
-                    relationships.add( new Relationship( firstPerson.getName(), rel, lastPerson.getName() ) );
+                    if (!Relationship.checkRelationship(firstPerson, rel)) {
+                        System.out.println("There is a bad relationship in CSV file.\nPlease check your relationship stack.");
+                        System.exit(-1);
+                    }else {
+                        //Create a stack of all relationships
+                        assert firstPerson != null && lastPerson != null;
+                        relationships.add( new Relationship(firstPerson, rel, lastPerson) );
 
-                    //Create a family object with existing data
-                    createNewFamily(families, firstPerson, lastPerson, rel, lineCount);
+                    }
+
 
                 }
+                //Create a family object with existing data
             }
+            Family.isPartners(relationships, families);
+            Family.insertChild(relationships, families);
 
             System.out.println("People");
             System.out.println(people.toString());

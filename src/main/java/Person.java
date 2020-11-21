@@ -22,15 +22,15 @@ public class Person implements Comparable<Person> {
         return null;
     }
 
-    public static boolean isPerson(TreeSet<Person> person, String pName) {
-        for(Person per : person) {
-            if(!pName.equals(per.name)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
+    public static void createPerson(TreeSet<Person> people, String name, String gender, int lineCount) {
+        if(gender.equals("man") || gender.equals("woman"))
+            people.add(new Person(name, gender));
+        else {
+            System.out.println("There is an error on CSV file to line: " + lineCount + ".");
+            System.exit(-1);
+        }
+    }
     public String getName() {
         return name;
     }
@@ -47,6 +47,6 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", gander='" + gender + '\'' +  "}\n";
+        return "Name=" + name + ", gander='" + gender + '\'' +  "}\n";
     }
 }

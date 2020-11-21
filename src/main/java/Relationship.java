@@ -1,14 +1,12 @@
-import java.util.ArrayList;
-
 public class Relationship {
 
-    String firstName;
-    String lastName;
+    Person firstPerson;
+    Person lastPerson;
     String relationship;
 
-    public Relationship(String firstName, String relationship, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Relationship(Person firstPerson, String relationship, Person lastPerson) {
+        this.firstPerson = firstPerson;
+        this.lastPerson = lastPerson;
         this.relationship = relationship;
     }
 
@@ -21,8 +19,20 @@ public class Relationship {
         return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
     }
 
+    public Person getFirstPerson() {
+        return firstPerson;
+    }
+
+    public Person getLastPerson() {
+        return lastPerson;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
     @Override
     public String toString() {
-        return "Person{" + "First name=" + firstName + ", relationship=" + relationship +  ", Last name=" + lastName + "\n";
+        return "First name=" + firstPerson.getName() + ", relationship=" + relationship +  ", Last name=" + lastPerson.getName() + "\n";
     }
 }
