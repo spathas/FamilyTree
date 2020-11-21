@@ -1,0 +1,16 @@
+Name: Cassana Estermont, Gender: woman,
+Name: Cersei Lannister, Gender: woman,
+Name: Gendry, Gender: man,
+Name: Joffrey Baratheon, Gender: man,
+Name: Margaery Tyrell, Gender: woman,
+Name: Myrcella Baratheon, Gender: woman,
+Name: Renly Baratheon, Gender: man,
+Name: Robert Baratheon, Gender: man,
+Name: Selyse Baratheon, Gender: woman,
+Name: Shireen Baratheon, Gender: woman,
+Name: Stannis Baratheon, Gender: man,
+Name: Steffon Baratheon, Gender: man,
+Name: Tommen Baratheon, Gender: man,
+
+
+ The length of list is: 13

@@ -1,27 +1,52 @@
+//import java.util.ArrayList;
+import java.util.TreeSet;
+
 public class Person implements Comparable<Person> {
 
     String name;
     String gender;
+
+//    ArrayList<Family> Family = new ArrayList<>();
 
     public Person(String name, String gender) {
         this.name = name;
         this.gender = gender;
     }
 
+    public static Person findPerson(TreeSet<Person> person, String pName){
+        for(Person per : person) {
+            if(pName.equals(per.name)) {
+                return per;
+            }
+        }
+        return null;
+    }
+
+
+    public static void createPerson(TreeSet<Person> people, String name, String gender, int lineCount) {
+        if(gender.equals("man") || gender.equals("woman"))
+            people.add(new Person(name, gender));
+        else {
+            System.out.println("There is an error on CSV file to line: " + lineCount + ".");
+            System.exit(-1);
+        }
+    }
     public String getName() {
         return name;
     }
 
+    public String getGender() { return gender; }
     //Print list with alphabet priority
+
     @Override
     public int compareTo(Person o) {
         //Sorted by name.
         return this.name.compareTo(o.name);
     }
-
     //To String printing
+
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", gander='" + gender + '\'' +  "}\n";
+        return "Name=" + name + ", gander='" + gender + '\'' +  "}\n";
     }
 }
