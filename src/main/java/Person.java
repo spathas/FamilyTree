@@ -7,7 +7,7 @@ public class Person implements Comparable<Person> {
     String name;
     String gender;
 
-    Set<Family> family = new HashSet<>();
+    Set<Family> families = new HashSet<>();
 
     public Person() {
         this.name = "Unknown";
@@ -16,10 +16,6 @@ public class Person implements Comparable<Person> {
     public Person(String name, String gender) {
         this.name = name;
         this.gender = gender;
-    }
-
-    public void addFamilies(Family family) {
-        this.family.add(family);
     }
 
     public static Person findPerson(TreeSet<Person> person, String pName){
@@ -55,6 +51,12 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString() {
-        return "Name=" + name + ", gander='" + gender + '\'' +  "}\n";
+        return "Name=" + name + ", gander='" + gender + '\'' + "}\n";
+    }
+
+    public void printFamilies() {
+        for(Family family: families) {
+            System.out.println(family.toString());
+        }
     }
 }

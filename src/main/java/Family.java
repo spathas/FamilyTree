@@ -50,6 +50,23 @@ public class Family {
         return null;
     }
 
+    public static ArrayList<Family> addFamiliesToPerson(ArrayList<Family> families, Person firstPerson) {
+        ArrayList<Family> fam = new ArrayList<>();
+        for(Family family: families) {
+            int index = -1;
+            if(firstPerson.getGender().equals("man")) index = 0;
+            if(firstPerson.getGender().equals("woman")) index = 1;
+
+            if(family.parents[index].getName().equals(firstPerson.getName())) {
+                fam.add(family);
+            }
+            for (Person person : family.children) {
+                if(person.getName().equals(firstPerson.getName())) fam.add(family);;
+            }
+        }
+        return fam;
+    }
+
     // If there are partners create a new obj of Family
     public static void CreateNewIfPartners(ArrayList<Relationship> relationships, ArrayList<Family> families) {
         for(Relationship rel : relationships) {
@@ -105,23 +122,37 @@ public class Family {
     }
 
 
-    public static void calcRelationship(ArrayList<Family> families, Person firstPerson, Person lastPerson) {
-        String rel = "Unknown relationship";
-        rel = Family.isPartners(families, firstPerson, lastPerson);
+//    //Find relationship between two people.
+//    public static void calcRelationship(ArrayList<Family> families, Person firstPerson, Person lastPerson) {
+//        String rel = "Unknown relationship";
+//        rel = Family.isPartners(families, firstPerson, lastPerson);
+//
+//        System.out.println(firstPerson.getName() + " is " + rel + " of " + lastPerson.getName());
+//    }
+//
+//    private static String isPartners(ArrayList<Family> families, Person firstPerson, Person lastPerson) {
+//        Family fam = Family.findFamilyByParents(families, firstPerson.getName(), lastPerson.getName());
+//        if(fam == null) {
+//            return "Unknown relationship";
+//        }else {
+//            if(firstPerson.getGender().equals("man")) return "husband";
+//            else return "wife";
+//        }
+//    }
+//
+//    private String isParent(Family family, Person firstPerson, Person lastPerson) {
+//        int index;
+//        if(firstPerson.getGender().equals("man")) index = 0;
+//        else index = 1;
+//
+//        if(firstPerson.getName().equals(family.parents[index].getName())) {
+//            for(Person person : children) {
+//
+//            }
+//        }
+//    }
 
-        System.out.println(firstPerson.getName() + " is " + rel + " of " + lastPerson.getName());
-    }
 
-    //Find parent relationship
-    private static String isPartners(ArrayList<Family> families, Person firstPerson, Person lastPerson) {
-        Family fam = Family.findFamilyByParents(families, firstPerson.getName(), lastPerson.getName());
-        if(fam == null) {
-            return "Unknown relationship";
-        }else {
-            if(firstPerson.getGender().equals("man")) return "husband";
-            else return "wife";
-        }
-    }
 
     // To String Object printing
     private String printChildrenNames() {

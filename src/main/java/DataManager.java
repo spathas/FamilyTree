@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Stack;
 import java.util.TreeSet;
 
 public class DataManager {
@@ -89,6 +88,15 @@ public class DataManager {
             Family.CreateNewIfPartners(relationships, families);
             Family.insertChild(relationships, families);
 
+            //Insert families in person objects.
+            for(Person person : people) {
+                person.families.addAll(Family.addFamiliesToPerson(families, person));
+                System.out.println();
+                System.out.println("Families of " + person.getName() + " are: \n");
+                person.printFamilies();
+                System.out.println("-----------------------------------------------");
+            }
+
             System.out.println("People");
             System.out.println(people.toString());
             System.out.println("________________________________________________________________\n");
@@ -108,7 +116,7 @@ public class DataManager {
             Person personLast = Person.findPerson(people, scanner.nextLine());
 
             System.out.println("The relationship is:");
-            Family.calcRelationship(families, personFirst, personLast);
+//            Family.calcRelationship(families, personFirst, personLast);
 
 
             //////////TXT GENERATE FILE////////////////////////////////
