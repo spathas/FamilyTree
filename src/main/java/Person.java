@@ -1,4 +1,5 @@
-//import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Person implements Comparable<Person> {
@@ -6,8 +7,12 @@ public class Person implements Comparable<Person> {
     String name;
     String gender;
 
-//    ArrayList<Family> Family = new ArrayList<>();
+    Set<Family> families = new HashSet<>();
 
+    public Person() {
+        this.name = "Unknown";
+        this.gender = "Unknown";
+    }
     public Person(String name, String gender) {
         this.name = name;
         this.gender = gender;
@@ -22,7 +27,6 @@ public class Person implements Comparable<Person> {
         return null;
     }
 
-
     public static void createPerson(TreeSet<Person> people, String name, String gender, int lineCount) {
         if(gender.equals("man") || gender.equals("woman"))
             people.add(new Person(name, gender));
@@ -31,22 +35,28 @@ public class Person implements Comparable<Person> {
             System.exit(-1);
         }
     }
+
+    //Getters
     public String getName() {
         return name;
     }
-
     public String getGender() { return gender; }
-    //Print list with alphabet priority
 
     @Override
+    //Alphabetic sorting
     public int compareTo(Person o) {
         //Sorted by name.
         return this.name.compareTo(o.name);
     }
-    //To String printing
 
     @Override
     public String toString() {
-        return "Name=" + name + ", gander='" + gender + '\'' +  "}\n";
+        return "Name=" + name + ", gander='" + gender + '\'' + "}\n";
+    }
+
+    public void printFamilies() {
+        for(Family family: families) {
+            System.out.println(family.toString());
+        }
     }
 }

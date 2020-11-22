@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Stack;
 import java.util.TreeSet;
 
 public class DataManager {
@@ -31,13 +30,21 @@ public class DataManager {
 
     }
 
+    public static boolean checkRelationship(Person firstPerson, String relationship) {
+        if( relationship.equals("father") || relationship.equals("mother") || relationship.equals("husband") || relationship.equals("wife") )
+            //Check for logical fail
+            if( (relationship.equals("father") || relationship.equals("husband")) && firstPerson.getGender().equals("man") )
+                return true;
+        return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
+    }
+
     public static void main(String[] args) {
 
-//        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-        String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
+        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+//        String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
-        Stack<Relationship> relationships = new Stack<>();
+        ArrayList<Relationship> relationships = new ArrayList<>();
         ArrayList<Family> families = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
@@ -64,7 +71,7 @@ public class DataManager {
                     Person lastPerson = Person.findPerson(people, line[2]);
                     String rel = line[1];
 
-                    if (!Relationship.checkRelationship(firstPerson, rel)) {
+                    if (!DataManager.checkRelationship(firstPerson, rel)) {
                         System.out.println("There is a bad relationship in CSV file.\nPlease check your relationship stack.");
                         System.exit(-1);
                     }else {
@@ -78,8 +85,17 @@ public class DataManager {
                 }
                 //Create a family object with existing data
             }
-            Family.isPartners(relationships, families);
+            Family.CreateNewIfPartners(relationships, families);
             Family.insertChild(relationships, families);
+
+            //Insert families in person objects.
+            for(Person person : people) {
+                person.families.addAll(Family.addFamiliesToPerson(families, person));
+                System.out.println();
+                System.out.println("Families of " + person.getName() + " are: \n");
+                person.printFamilies();
+                System.out.println("-----------------------------------------------");
+            }
 
             System.out.println("People");
             System.out.println(people.toString());
@@ -90,6 +106,18 @@ public class DataManager {
             System.out.println("Families");
             System.out.println(families.toString());
             System.out.println("________________________________________________________________\n");
+
+
+            ////////////SEARCHING RELATIONSHIPS////////////////////////////
+
+            System.out.println("Insert firstRelName");
+            Person personFirst = Person.findPerson(people, scanner.nextLine());
+            System.out.println("Insert lastRelName");
+            Person personLast = Person.findPerson(people, scanner.nextLine());
+
+            System.out.println("The relationship is:");
+//            Family.calcRelationship(families, personFirst, personLast);
+
 
             //////////TXT GENERATE FILE////////////////////////////////
             // Make a scanner to give a choice.

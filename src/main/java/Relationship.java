@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Relationship {
 
     Person firstPerson;
@@ -10,23 +12,13 @@ public class Relationship {
         this.relationship = relationship;
     }
 
-    public static boolean checkRelationship(Person firstPerson, String relationship) {
-        //Check for non recommended String in relationship slot of csv file
-        if( relationship.equals("father") || relationship.equals("mother") || relationship.equals("husband") || relationship.equals("wife") )
-            //Check for logical fail
-            if( (relationship.equals("father") || relationship.equals("husband")) && firstPerson.getGender().equals("man") )
-                return true;
-        return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
-    }
-
+    //Getters
     public Person getFirstPerson() {
         return firstPerson;
     }
-
     public Person getLastPerson() {
         return lastPerson;
     }
-
     public String getRelationship() {
         return relationship;
     }
