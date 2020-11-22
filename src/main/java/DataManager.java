@@ -40,8 +40,10 @@ public class DataManager {
 
     public static void main(String[] args) {
 
-        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-//        String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
+
+//        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+        String csvFile = "C:\\Users\\emi-1\\Projects\\FamilyTree\\src\\main\\java\\BaratheonTreeWithRels.csv";
+
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
         ArrayList<Relationship> relationships = new ArrayList<>();
