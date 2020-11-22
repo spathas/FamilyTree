@@ -42,7 +42,7 @@ public class DataManager {
 
 
 //        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-        String csvFile = "C:\\Users\\emi-1\\Projects\\FamilyTree\\src\\main\\java\\BaratheonTreeWithRels.csv";
+        String csvFile = "src\\main\\java\\BaratheonTreeWithRels.csv";
 
         CSVReader familyTree;
         TreeSet<Person> people = new TreeSet<>();
