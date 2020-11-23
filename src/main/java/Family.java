@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Family {
+public class Family implements IRelationshipsFinding{
 
     Person[] parents = new Person[2];
     Set<Person> children = new HashSet<>();

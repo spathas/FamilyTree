@@ -1,5 +1,5 @@
 
-public class IRelationshipsFinding {
+public interface IRelationshipsFinding {
 
     static void calcRelationship(Person firstPerson, Person lastPerson) {
         String rel = "Unknown relationship";
@@ -43,7 +43,7 @@ public class IRelationshipsFinding {
         return family.parents[firstGender].equals(firstPerson) && family.parents[lastGender].equals(lastPerson);
     }
 
-    private static boolean isParent(Family family, Person firstPerson, Person lastPerson, int firstGender) {
+    static boolean isParent(Family family, Person firstPerson, Person lastPerson, int firstGender) {
         return family.parents[firstGender].equals(firstPerson) && family.children.contains(lastPerson);
     }
 
@@ -55,9 +55,7 @@ public class IRelationshipsFinding {
         if(!(family.parents[lastGender].equals(lastPerson))) return false;
 
         for (Person child : family.children) {
-            int childGender = -1;
-            if(child.gender.equals("man")) childGender = 0;
-            if(child.gender.equals("woman")) childGender = 1;
+            int childGender = translateGender(child);
 
             for (Family pFamily : child.getFamilies()) {
                 //Check if child (of firstPerson) is parent of lastPerson.
@@ -103,9 +101,7 @@ public class IRelationshipsFinding {
         if (!family.children.contains(lastPerson)) return false;
 
         for (Person brother : family.children) {
-            int childGender = -1;
-            if(brother.gender.equals("man")) childGender = 0;
-            if(brother.gender.equals("woman")) childGender = 1;
+            int childGender = translateGender(brother);
 
             for(Family bFamily : brother.getFamilies()) {
                 if (isParent(bFamily, brother, firstPerson, childGender)) return true;
@@ -120,9 +116,7 @@ public class IRelationshipsFinding {
         if (!family.children.contains(lastPerson)) return false;
 
         for(Person parent : family.parents) {
-            int childGender = -1;
-            if(parent.gender.equals("man")) childGender = 0;
-            if(parent.gender.equals("woman")) childGender = 1;
+            int childGender = translateGender(parent);
 
             for (Family pFamily : firstPerson.getFamilies()) {
                 if (isUncles(pFamily, parent, firstPerson, childGender)) return true;
@@ -137,6 +131,13 @@ public class IRelationshipsFinding {
             if (uFamily.parents[personGender] == person) return uFamily.parents[partnerGender];
         }
         return null;
+    }
+
+    private static int translateGender(Person person) {
+        if(person.gender.equals("man")) return 0;
+        if(person.gender.equals("woman")) return 1;
+
+        return -1;
     }
 
 }
