@@ -58,6 +58,10 @@ public class Person implements Comparable<Person> {
 
     public void printFamilies() {
         for(Family family: families) {
+            System.out.println();
+            System.out.println("Families of " + this.getName() + " are: \n");
+            System.out.println(family.toString());
+            System.out.println("-----------------------------------------------");
             System.out.println(family.toString());
         }
     }
