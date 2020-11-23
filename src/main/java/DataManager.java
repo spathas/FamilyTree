@@ -4,8 +4,6 @@
 //import static guru.nidi.graphviz.model.Factory.node;
 
 import java.util.Scanner;
-        import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 

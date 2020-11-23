@@ -1,3 +1,4 @@
+
 public class IRelationshipsFinding {
 
     static void calcRelationship(Person firstPerson, Person lastPerson) {
