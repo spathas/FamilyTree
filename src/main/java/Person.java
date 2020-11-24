@@ -9,9 +9,9 @@ public class Person implements Comparable<Person> {
 
     Set<Family> families = new HashSet<>();
 
-    public Person() {
+    public Person(String gender) {
         this.name = "Unknown";
-        this.gender = "Unknown";
+        this.gender = gender;
     }
 
     public Person(String name, String gender) {
@@ -64,5 +64,9 @@ public class Person implements Comparable<Person> {
             System.out.println("-----------------------------------------------");
             System.out.println(family.toString());
         }
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

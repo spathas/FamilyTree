@@ -8,8 +8,8 @@ import java.util.TreeSet;
 
 public interface IFileManager {
 
-    //        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-    String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
+            String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+//    String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
 
     static void readFile(TreeSet<Person> people, ArrayList<Relationship> relationships) {
         try {
