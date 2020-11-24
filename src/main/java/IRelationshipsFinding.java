@@ -3,11 +3,9 @@ public interface IRelationshipsFinding {
 
     static void calcRelationship(Person firstPerson, Person lastPerson) {
         String rel = "Unknown relationship";
-        int firstGender = -1, lastGender = -1;
-        if(firstPerson.getGender().equals("man")) firstGender = 0;
-        if(firstPerson.getGender().equals("woman")) firstGender = 1;
-        if(lastPerson.getGender().equals("man")) lastGender = 0;
-        if(lastPerson.getGender().equals("woman")) lastGender = 1;
+        int firstGender, lastGender;
+        firstGender = translateGender(firstPerson);
+        lastGender = translateGender(lastPerson);
 
 
         for(Family family : lastPerson.getFamilies()) {
@@ -20,7 +18,7 @@ public interface IRelationshipsFinding {
                 if (isGrandParent(family, firstPerson, lastPerson, firstGender)) rel = "Grandfather";
                 if (isUncles(family, firstPerson, lastPerson, firstGender)) rel = "Uncle";
                 if (isNephew(family, firstPerson, lastPerson, lastGender)) rel = "Nephew";
-                if (isCousin(family, firstPerson, lastPerson, firstGender)) rel = "Cousin";
+                if (isCousin(family, firstPerson, lastPerson)) rel = "Cousin";
             }
 
             if(firstGender == 1) {
@@ -32,14 +30,14 @@ public interface IRelationshipsFinding {
                 if (isGrandParent(family, firstPerson, lastPerson, firstGender)) rel = "Grandmother";
                 if (isUncles(family, firstPerson, lastPerson, firstGender)) rel = "Aunt";
                 if (isNephew(family, firstPerson, lastPerson, lastGender)) rel = "Niece";
-                if (isCousin(family, firstPerson, lastPerson, firstGender)) rel = "Cousin";
+                if (isCousin(family, firstPerson, lastPerson)) rel = "Cousin";
             }
         }
 
         System.out.println(firstPerson.getName() + " is " + rel + " of " + lastPerson.getName());
     }
 
-    private static boolean isPartners(Family family, Person firstPerson, Person lastPerson, int firstGender, int lastGender) {
+    static boolean isPartners(Family family, Person firstPerson, Person lastPerson, int firstGender, int lastGender) {
         return family.parents[firstGender].equals(firstPerson) && family.parents[lastGender].equals(lastPerson);
     }
 
@@ -47,11 +45,11 @@ public interface IRelationshipsFinding {
         return family.parents[firstGender].equals(firstPerson) && family.children.contains(lastPerson);
     }
 
-    private static boolean isBrother(Family family, Person firstPerson, Person lastPerson) {
+    static boolean isBrother(Family family, Person firstPerson, Person lastPerson) {
         return family.children.contains(firstPerson) && family.children.contains(lastPerson);
     }
 
-    private static boolean isGrandchild(Family family, Person firstPerson, Person lastPerson, int lastGender) {
+    static boolean isGrandchild(Family family, Person firstPerson, Person lastPerson, int lastGender) {
         if(!(family.parents[lastGender].equals(lastPerson))) return false;
 
         for (Person child : family.children) {
@@ -67,7 +65,7 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    private static boolean isGrandParent(Family family, Person firstPerson, Person lastPerson, int firstGender) {
+    static boolean isGrandParent(Family family, Person firstPerson, Person lastPerson, int firstGender) {
         if (!family.children.contains(lastPerson)) return false;
 
         for(Person parent: family.parents) {
@@ -79,7 +77,7 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    private static boolean isUncles(Family family, Person firstPerson, Person lastPerson, int firstGender) {
+    static boolean isUncles(Family family, Person firstPerson, Person lastPerson, int firstGender) {
 
         //Find partner of lastPerson obj.
         Person partner = findPartnerOf(firstPerson, firstGender);
@@ -95,7 +93,7 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    private static boolean isNephew(Family family, Person firstPerson, Person lastPerson, int lastGender) {
+    static boolean isNephew(Family family, Person firstPerson, Person lastPerson, int lastGender) {
         Person partner = findPartnerOf(lastPerson, lastGender);
 
         if (!family.children.contains(lastPerson)) return false;
@@ -112,7 +110,7 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    private static boolean isCousin(Family family, Person firstPerson, Person lastPerson, int firstGender) {
+    static boolean isCousin(Family family, Person firstPerson, Person lastPerson) {
         if (!family.children.contains(lastPerson)) return false;
 
         for(Person parent : family.parents) {
@@ -125,7 +123,7 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    private static Person findPartnerOf(Person person, int personGender) {
+    static Person findPartnerOf(Person person, int personGender) {
         int partnerGender = 1 - personGender;
         for (Family uFamily : person.getFamilies()) {
             if (uFamily.parents[personGender] == person) return uFamily.parents[partnerGender];
@@ -133,7 +131,7 @@ public interface IRelationshipsFinding {
         return null;
     }
 
-    private static int translateGender(Person person) {
+    static int translateGender(Person person) {
         if(person.gender.equals("man")) return 0;
         if(person.gender.equals("woman")) return 1;
 
