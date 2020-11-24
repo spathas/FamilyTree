@@ -22,7 +22,6 @@ public class MainClass {
 
 
         ////////////SEARCHING RELATIONSHIPS////////////////////////////
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Insert firstRelName");
         Person personFirst = Person.findPerson(data.people, scanner.nextLine());
