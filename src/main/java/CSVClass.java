@@ -6,15 +6,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public interface IFileManager {
+public class CSVClass {
 
             String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
 //    String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
 
-    static void readFile(TreeSet<Person> people, ArrayList<Relationship> relationships) {
+    public CSVClass() {
+
+    }
+
+    public CSVClass(String csvFile) {
+        this.csvFile = csvFile;
+    }
+
+    void readFile(TreeSet<Person> people, ArrayList<Relationship> relationships) {
         try {
 
-            CSVReader familyTree = new CSVReader(new FileReader(csvFile));
+            CSVReader familyTree = new CSVReader(new FileReader(this.csvFile));
             String[] line;
             int lineCount = 0;
 
