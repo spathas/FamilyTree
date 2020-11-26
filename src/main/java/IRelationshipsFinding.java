@@ -1,7 +1,7 @@
 
 public interface IRelationshipsFinding {
 
-    static void calcRelationship(Person firstPerson, Person lastPerson) {
+    static String calcRelationship(Person firstPerson, Person lastPerson) {
         String rel = "Unknown relationship";
         int firstGender, lastGender;
         firstGender = translateGender(firstPerson);
@@ -34,7 +34,7 @@ public interface IRelationshipsFinding {
             }
         }
 
-        System.out.println(firstPerson.getName() + " is " + rel + " of " + lastPerson.getName());
+        return rel;
     }
 
     static boolean isPartners(Family family, Person firstPerson, Person lastPerson, int firstGender, int lastGender) {
@@ -70,7 +70,7 @@ public interface IRelationshipsFinding {
 
         for(Person parent: family.parents) {
             for (Family pFamily : parent.getFamilies()) {
-                if (pFamily.parents[firstGender].equals(firstPerson)) return true;
+                if (pFamily.children.contains(parent)) return true;
             }
         }
 
@@ -96,14 +96,25 @@ public interface IRelationshipsFinding {
     static boolean isNephew(Family family, Person firstPerson, Person lastPerson, int lastGender) {
         Person partner = findPartnerOf(lastPerson, lastGender);
 
-        if (!family.children.contains(lastPerson)) return false;
+//        if (!family.children.contains(lastPerson)) {
+//            if(!family.children.contains(partner)) return false;
+//        }
 
         for (Person brother : family.children) {
             int childGender = translateGender(brother);
 
             for(Family bFamily : brother.getFamilies()) {
                 if (isParent(bFamily, brother, firstPerson, childGender)) return true;
-                if (isParent(bFamily, brother, partner, childGender)) return true;
+            }
+        }
+
+        for (Family pFamily: partner.getFamilies()) {
+            for (Person pBrother : pFamily.children) {
+                int childGender = translateGender(pBrother);
+
+                for(Family bFamily : pBrother.getFamilies()) {
+                    if (isParent(bFamily, pBrother, firstPerson, childGender)) return true;
+                }
             }
         }
 
@@ -136,6 +147,10 @@ public interface IRelationshipsFinding {
         if(person.gender.equals("woman")) return 1;
 
         return -1;
+    }
+
+    static void printRelationship(Person firstPerson, Person lastPerson) {
+        System.out.println(firstPerson.getName() + " is " + calcRelationship(firstPerson, lastPerson) + " of " + lastPerson.getName());
     }
 
 }

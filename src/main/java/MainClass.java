@@ -25,16 +25,16 @@ public class MainClass {
 
         ////////////SEARCHING RELATIONSHIPS////////////////////////////
 
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Insert firstRelName");
-//        Person personFirst = Person.findPerson(data.people, scanner.nextLine());
-//        System.out.println("Insert lastRelName");
-//        Person personLast = Person.findPerson(data.people, scanner.nextLine());
-//
-//        System.out.println("The relationship is:");
-//        assert personFirst != null;
-//        IRelationshipsFinding.calcRelationship(personFirst, personLast);
-//        System.out.println();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Insert firstRelName");
+        Person personFirst = Person.findPerson(data.people, scanner.nextLine());
+        System.out.println("Insert lastRelName");
+        Person personLast = Person.findPerson(data.people, scanner.nextLine());
+
+        System.out.println("The relationship is:");
+        assert personFirst != null;
+        IRelationshipsFinding.printRelationship(personFirst, personLast);
+        System.out.println();
 
 
         //////////TXT GENERATE FILE////////////////////////////////
@@ -43,7 +43,7 @@ public class MainClass {
 //        boolean exportFile = scanner.nextBoolean();
 //        if(exportFile) CSVClass.exportTXT(data.people);
 
-        graph.graphVizMethod();
+//        graph.graphVizMethod(Person.findPerson(data.people, "Renly Baratheon"));
 
     }
 }

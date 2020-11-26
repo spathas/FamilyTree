@@ -2,27 +2,11 @@ digraph "example1" {
 graph ["rankdir"="LR"]
 node ["fontname"="Arial"]
 edge ["class"="link-class"]
-"Steffon Baratheon" ["style"="filled"]
-"Cassana Estermont" ["style"="filled"]
-"Robert Baratheon" ["style"="filled"]
-"Renly Baratheon" ["style"="filled"]
-"Stannis Baratheon" ["style"="filled"]
-"Selyse Baratheon" ["style"="filled"]
-"Cersei Lannister" ["style"="filled"]
-"Steffon Baratheon" -> "Stannis Baratheon"
-"Steffon Baratheon" -> "Renly Baratheon"
-"Steffon Baratheon" -> "Robert Baratheon"
-"Steffon Baratheon" -> "Cassana Estermont"
-"Cassana Estermont" -> "Stannis Baratheon"
-"Cassana Estermont" -> "Renly Baratheon"
-"Cassana Estermont" -> "Robert Baratheon"
-"Robert Baratheon" -> "Gendry"
-"Robert Baratheon" -> "Cersei Lannister"
+"Renly Baratheon" ["color"="red","style"="filled"]
 "Renly Baratheon" -> "Margaery Tyrell"
-"Stannis Baratheon" -> "Shireen Baratheon"
-"Stannis Baratheon" -> "Selyse Baratheon"
-"Selyse Baratheon" -> "Shireen Baratheon"
-"Cersei Lannister" -> "Tommen Baratheon"
-"Cersei Lannister" -> "Myrcella Baratheon"
-"Cersei Lannister" -> "Joffrey Baratheon"
+"Renly Baratheon" -> "Renly Baratheon"
+"Renly Baratheon" -> "Robert Baratheon"
+"Renly Baratheon" -> "Stannis Baratheon"
+"Renly Baratheon" -> "Cassana Estermont"
+"Renly Baratheon" -> "Steffon Baratheon"
 }
