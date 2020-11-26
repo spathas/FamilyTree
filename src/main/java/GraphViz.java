@@ -24,12 +24,12 @@ public class GraphViz implements IRelationshipsFinding{
     private static Graph addByPerson(Graph graph, Person person) {
 
         for(Family fam : person.getFamilies()) {
-//            for(Person per : fam.parents) {
-//                if (!per.equals(person)) graph = addSpouse(graph, person, per, IRelationshipsFinding.calcRelationship(per, person));
-//            }
-//                for(Person child : fam.children) {
-//                    graph = addSpouse( graph, person, child, IRelationshipsFinding.calcRelationship(child, person) );
-//                }
+            for(Person per : fam.parents) {
+                if (!per.equals(person)) graph = addSpouse(graph, person, per);
+            }
+                for(Person child : fam.children) {
+                    if (!child.equals(person)) graph = addSpouse( graph, person, child);
+                }
 
 
         }
@@ -50,70 +50,28 @@ public class GraphViz implements IRelationshipsFinding{
             );
         }
     }
+    private static Graph addSpouse(Graph graph, Person firstPerson, Person lastPerson) {
 
-    private static Graph addSpouse(Graph graph, Person per, Person per2, String rel) {
 
-        switch (rel) {
-            case "Husband":
             return graph.with(
-                    node(per.getName()).with(Color.BROWN)
-                            .link(to(node(per2.getName()))).with(Style.FILLED)
+                    node(firstPerson.getName()).with(Style.FILLED)
+                            .link(to(node(lastPerson.getName()))).with(Style.FILLED)
             );
-            case "Wife":
-                return graph.with(
-                        node(per.getName()).with(Color.YELLOW)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
-            case "Father":
-                return graph.with(
-                        node(per.getName()).with(Color.BLUE)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
-            case "Mother":
-                return graph.with(
-                        node(per.getName()).with(Color.RED)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
-            case "Brother":
-                return graph.with(
-                        node(per.getName()).with(Color.BISQUE1)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
-            case "Sister":
-                return graph.with(
-                        node(per.getName()).with(Color.BISQUE)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
-            case "Daughter":
-                return graph.with(
-                        node(per.getName()).with(Color.PERU)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
-            case "Son":
-                return graph.with(
-                        node(per.getName()).with(Color.BLACK)
-                                .link(to(node(per2.getName()))).with(Style.FILLED)
-                );
 
-        }
-        return graph.with(
-                node(per.getName()).with(Color.RED)
-                        .link(to(node(per2.getName()))).with(Style.FILLED)
-        );
     }
 
     // public static void main(String[] args) throws IOException {
-    public void graphVizMethod(Person per) throws IOException {
+    public void graphVizMethod() throws IOException {
         Graph g = graph("example1").directed()
                 .graphAttr().with(Rank.dir(LEFT_TO_RIGHT)).nodeAttr().with(Font.name("Arial"))
                 .linkAttr().with("class", "link-class");
 
-//        for(Relationship relationship : relationships) {
-//
-//            g = addSpouse(g, relationship);
-//        }
+        for(Relationship relationship : relationships) {
 
-        g = addByPerson(g, per);
+            g = addSpouse(g, relationship);
+        }
+
+//        g = addByPerson(g, per);
 
         guru.nidi.graphviz.engine.Graphviz
                 .fromGraph(g)
