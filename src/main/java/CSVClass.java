@@ -8,8 +8,8 @@ import java.util.TreeSet;
 
 public class CSVClass {
 
-            String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-//    String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
+//            String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
+    String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
 
     public CSVClass() {
 
