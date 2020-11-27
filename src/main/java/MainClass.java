@@ -21,6 +21,22 @@ public class MainClass {
         data.printListOfRelationships();
         data.printListOfPeople();
         data.printListOfFamilies();
+
+        int counter = 0;
+
+        while (counter == 0) {
+            counter = 1;
+            System.out.println("Insert name of person to return families");
+            Person personName = Person.findPerson(data.people, scanner.nextLine());
+            if(personName != null) {
+            data.printFamiliesPerPerson(personName);
+            } else {
+                System.out.println("Name does not exist.");
+                counter = 0;
+            }
+        }
+
+
         GraphViz graph = new GraphViz(data.getRelationships());
 
 

@@ -57,7 +57,7 @@ public class DataManager {
     public void insertFamiliesToPerson() {
         for(Person person : this.getPeople()) {
             person.families.addAll(this.addFamiliesToPerson(person));
-            person.printFamilies();
+//            person.printFamilies();
         }
     }
 
@@ -181,6 +181,12 @@ public class DataManager {
     public void printListOfFamilies() {
         System.out.println("Families");
         System.out.println(this.families.toString());
+        System.out.println("________________________________________________________________\n");
+    }
+
+    public void printFamiliesPerPerson(Person person) {
+        System.out.println("Families of person: " +person.getName());
+        person.printFamilies();
         System.out.println("________________________________________________________________\n");
     }
 
