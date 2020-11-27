@@ -1,5 +1,9 @@
-digraph "Baratheon" {
-graph ["rankdir"="TB"]
+digraph "example1" {
+graph ["rankdir"="LR"]
 node ["fontname"="Arial"]
 edge ["class"="link-class"]
+"GrandmaEmily" ["color"="red"]
+"GrandmaEmily" -> "Euthumia"
+"GrandmaEmily" -> "Andreas"
+"Andreas" -> "Nikos" ["weight"="5","style"="dashed"]
 }

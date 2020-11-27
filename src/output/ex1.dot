@@ -1,0 +1,17 @@
+digraph "example1" {
+graph ["rankdir"="TB"]
+node ["fontname"="Arial"]
+edge ["class"="link-class"]
+"Stefon Baratheon" ["color"="green"]
+"Cassana Estermont" ["color"="green"]
+"Stannis Baratheon" ["color"="green"]
+"Selyse Estermont" ["color"="green"]
+"Stefon Baratheon" -> "Renly Baratheon"
+"Stefon Baratheon" -> "Stannis Baratheon"
+"Stefon Baratheon" -> "Robert Baratheon"
+"Cassana Estermont" -> "Renly Baratheon"
+"Cassana Estermont" -> "Stannis Baratheon"
+"Cassana Estermont" -> "Robert Baratheon"
+"Stannis Baratheon" -> "Shireen Baratheon"
+"Selyse Estermont" -> "Shireen Baratheon"
+}

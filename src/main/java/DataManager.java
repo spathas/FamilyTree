@@ -38,7 +38,7 @@ public class DataManager {
         return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 
 //        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
@@ -112,46 +112,28 @@ public class DataManager {
 
             ////////////SEARCHING RELATIONSHIPS////////////////////////////
 
-            System.out.println("Insert firstRelName");
-            Person personFirst = Person.findPerson(people, scanner.nextLine());
-            System.out.println("Insert lastRelName");
-            Person personLast = Person.findPerson(people, scanner.nextLine());
-
-            System.out.println("The relationship is:");
+//            System.out.println("Insert firstRelName");
+//            Person personFirst = Person.findPerson(people, scanner.nextLine());
+//            System.out.println("Insert lastRelName");
+//            Person personLast = Person.findPerson(people, scanner.nextLine());
+//
+//            System.out.println("The relationship is:");
 //            Family.calcRelationship(families, personFirst, personLast);
 
 
             //////////TXT GENERATE FILE////////////////////////////////
             // Make a scanner to give a choice.
-            System.out.println("If you wanna export a TXT file with all names of this tree press true");
-            boolean exportFile = scanner.nextBoolean();
-            if(exportFile) exportTXT(people);
+//            System.out.println("If you wanna export a TXT file with all names of this tree press true");
+//            boolean exportFile = scanner.nextBoolean();
+//            if(exportFile) exportTXT(people);
 
         } catch (IOException e) {
             System.out.println("\"Check the path or type of CSV file.\"");
             e.printStackTrace();
         }
 
-
-        ///////////////GRAPHVIZ/////////////////////////////////////////
-//        Graph g = graph("Baratheon").directed()
-//                .graphAttr().with(Rank.dir(TOP_TO_BOTTOM))
-//                .nodeAttr().with(Font.name("Arial"))
-//                .linkAttr().with("class", "link-class")
-//                .with(
-//                        //
-//                );
-//
-//        Graphviz
-//                .fromGraph(g)
-//                .height(500)
-//                .render(Format.DOT).toFile(new File("./ex1.dot"));
-//
-//        Graphviz
-//                .fromGraph(g)
-//                .height(500)
-//                .render(Format.PNG).toFile(new File("./ex1.png"));
-
+        Test h1 = new Test();
+        h1.testaki();
 
     }
 
