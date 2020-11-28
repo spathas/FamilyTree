@@ -9,7 +9,7 @@ import java.util.TreeSet;
 public class CSVClass {
 
 //            String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-    String csvFile = "C:\\Users\\spath\\Desktop\\BaratheonTreeWithRels.csv";
+    String csvFile = IBrowserGui.chooseFileGui("Import CSV", "Choose your CSV file with data of family.");
 
     public CSVClass() {
 
@@ -60,9 +60,20 @@ public class CSVClass {
         }
     }
 
+    static boolean checkRelationship(Person firstPerson, String relationship) {
+        if( relationship.equals("father") || relationship.equals("mother") || relationship.equals("husband") || relationship.equals("wife") )
+            //Check for logical fail
+            if( (relationship.equals("father") || relationship.equals("husband")) && firstPerson.getGender().equals("man") )
+                return true;
+        return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
+    }
+
     static void exportTXT(TreeSet<Person> person) {
+
         try {
-            FileWriter myWriter = new FileWriter("names.txt");
+//            String importPath = browserWindow()
+            FileWriter myWriter = new FileWriter(
+                    IBrowserGui.chooseFolderGui("Export TXT", "Where you wanna save your txt file.") + "\\names.txt");
             for(Person per : person) {
                 myWriter.write("Name: " + per.getName() + ", Gender: " + per.getGender() + ",\n");
             }
@@ -74,16 +85,6 @@ public class CSVClass {
             e.printStackTrace();
         }
 
-    }
-
-
-
-    static boolean checkRelationship(Person firstPerson, String relationship) {
-        if( relationship.equals("father") || relationship.equals("mother") || relationship.equals("husband") || relationship.equals("wife") )
-            //Check for logical fail
-            if( (relationship.equals("father") || relationship.equals("husband")) && firstPerson.getGender().equals("man") )
-                return true;
-        return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
     }
 
 }
