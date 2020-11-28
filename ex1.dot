@@ -1,5 +1,0 @@
-digraph "Baratheon" {
-graph ["rankdir"="TB"]
-node ["fontname"="Arial"]
-edge ["class"="link-class"]
-}

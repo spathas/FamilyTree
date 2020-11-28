@@ -1,158 +1,187 @@
-import com.opencsv.CSVReader;
-
-//import guru.nidi.graphviz.attribute.Color;
-//import guru.nidi.graphviz.attribute.Style;
-//import static guru.nidi.graphviz.attribute.Attributes.attr;
-//import static guru.nidi.graphviz.model.Factory.node;
-
 import java.util.Scanner;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class DataManager {
 
-    public static void exportTXT(TreeSet<Person> person) {
-        try {
-            FileWriter myWriter = new FileWriter("names.txt");
-            for(Person per : person) {
-                myWriter.write("Name: " + per.getName() + ", Gender: " + per.getGender() + ",\n");
+    //Instances
+    TreeSet<Person> people = new TreeSet<>();
+    ArrayList<Relationship> relationships = new ArrayList<>();
+    ArrayList<Family> families = new ArrayList<>();
+
+
+    //Setters
+    public void setPeople(TreeSet<Person> people) {
+        this.people = people;
+    }
+
+    public void setRelationships(ArrayList<Relationship> relationships) {
+        this.relationships = relationships;
+    }
+
+    public void setFamilies(ArrayList<Family> families) {
+        this.families = families;
+    }
+
+    //Getters
+    public TreeSet<Person> getPeople() {
+        return people;
+    }
+
+    public ArrayList<Relationship> getRelationships() {
+        return relationships;
+    }
+
+    public ArrayList<Family> getFamilies() {
+        return families;
+    }
+
+    //Methods
+    private ArrayList<Family> addFamiliesToPerson(Person firstPerson) {
+        ArrayList<Family> fam = new ArrayList<>();
+        for(Family family: this.families) {
+            int index = -1;
+            if(firstPerson.getGender().equals("man")) index = 0;
+            if(firstPerson.getGender().equals("woman")) index = 1;
+
+            if(family.parents[index].getName().equals(firstPerson.getName())) {
+                fam.add(family);
             }
-            myWriter.write("\n\n The length of list is: " + person.size());
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            for (Person person : family.children) {
+                if(person.getName().equals(firstPerson.getName())) fam.add(family);
+            }
         }
-
+        return fam;
     }
 
-    public static boolean checkRelationship(Person firstPerson, String relationship) {
-        if( relationship.equals("father") || relationship.equals("mother") || relationship.equals("husband") || relationship.equals("wife") )
-            //Check for logical fail
-            if( (relationship.equals("father") || relationship.equals("husband")) && firstPerson.getGender().equals("man") )
-                return true;
-        return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
+    public void insertFamiliesToPerson() {
+        for(Person person : this.getPeople()) {
+            person.families.addAll(this.addFamiliesToPerson(person));
+            person.printFamilies();
+        }
     }
 
-    public static void main(String[] args) {
+    private boolean isPartners(Family family, Person firstPerson, Person lastPerson) {
+        int firstGender, lastGender;
+        firstGender = IRelationshipsFinding.translateGender(firstPerson);
+        lastGender = IRelationshipsFinding.translateGender(lastPerson);
 
+        return IRelationshipsFinding.isPartners(family, firstPerson, lastPerson, firstGender, lastGender);
+    }
 
-//        String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
-        String csvFile = "src\\main\\java\\BaratheonTreeWithRels.csv";
+    private boolean isParent(Family family, Person firstPerson, Person lastPerson) {
+        int firstGender;
+        firstGender = IRelationshipsFinding.translateGender(firstPerson);
 
-        CSVReader familyTree;
-        TreeSet<Person> people = new TreeSet<>();
-        ArrayList<Relationship> relationships = new ArrayList<>();
-        ArrayList<Family> families = new ArrayList<>();
+        return IRelationshipsFinding.isParent(family, firstPerson, lastPerson, firstGender);
+    }
 
-        Scanner scanner = new Scanner(System.in);
+    private Family findFamilyByRelationship(Relationship relationship) {
+        for(Family family: this.families) {
+            if (isPartners(family, relationship.getFirstPerson(), relationship.getLastPerson()))
+                return family;
+            if (isParent(family, relationship.getFirstPerson(), relationship.getLastPerson()))
+                return family;
+        }
+        return null;
+    }
 
-        ////////////CSV READER///////////////////////////////////////
-        try {
+    private Family findFamilyByPartners(Person firstPerson, Person lastPerson) {
+        for(Family family: this.families) {
+            if(isPartners(family, firstPerson, lastPerson))
+                return family;
+        }
+        return null;
+    }
+    //This is a bad idea, don't handle null values because is risky.
+    //Γενικά να απόφεύγουμε τετοιο κώδικα που διαχειρίζεται null τιμές μπορεί να σκάσει πολύ εύκολα.
 
-            familyTree = new CSVReader(new FileReader(csvFile));
-            String[] line;
-            int lineCount = 0;
+    private Family findFamilyByNullParents(Person nullPerson, Person lastPerson) {
+        if(nullPerson == null) {
+            if (IRelationshipsFinding.translateGender(lastPerson) == 0) nullPerson = new Person("woman");
+            if (IRelationshipsFinding.translateGender(lastPerson) == 1) nullPerson = new Person("man");
 
-            while ((line = familyTree.readNext()) != null) {
-                lineCount++;
+            int nullGender = IRelationshipsFinding.translateGender(nullPerson);
+            int lastGender = IRelationshipsFinding.translateGender(lastPerson);
 
-                if(line[line.length -1].equals("") || line[line.length -1] == null) {
-                    String name = line[0];
-                    String gender = line[1];
+            for(Family family: this.families) {
+                if( family.parents[nullGender].getName().equals(nullPerson.getName()) && family.parents[lastGender].getName().equals(lastPerson.getName()) )
+                    return family;
+            }
+        }
+        return null;
+    }
 
-                    Person.createPerson(people, name, gender, lineCount);
-                }
-                else {
-                    //Find people objects base on 2 names by CSV line and relationship between them.
-                    Person firstPerson = Person.findPerson(people, line[0]);
-                    Person lastPerson = Person.findPerson(people, line[2]);
-                    String rel = line[1];
-
-                    if (!DataManager.checkRelationship(firstPerson, rel)) {
-                        System.out.println("There is a bad relationship in CSV file.\nPlease check your relationship stack.");
-                        System.exit(-1);
-                    }else {
-                        //Create a stack of all relationships
-                        assert firstPerson != null && lastPerson != null;
-                        relationships.add( new Relationship(firstPerson, rel, lastPerson) );
-
+    public void CreateNewIfPartners() {
+        for(Relationship rel : this.relationships) {
+            switch (rel.getRelationship()) {
+                case "husband":
+                    if (findFamilyByRelationship(rel) == null) {
+                        families.add(new Family(rel.getFirstPerson(), rel.getLastPerson()));
                     }
+                    else System.out.println("There is a duplicate here: " + rel.toString() + "\nCheck your CSV file for duplicates");
+                    break;
+                case "wife":
+                    if (findFamilyByRelationship(rel) == null)
+                        families.add(new Family(rel.getLastPerson(), rel.getFirstPerson()));
+                    else System.out.println("There is a duplicate here: " + rel.toString() + "\nCheck your CSV file for duplicates");
+                    break;
+            }
+        }
+    }
 
+    private void insertChildToNullFamilies(Relationship rel, String parentType) {
+        String parentGender = "";
+        if (parentType.equals("father")) parentGender = "man";
+        if (parentType.equals("mother")) parentGender = "woman";
 
+        Family newFam;
+        newFam = findFamilyByNullParents(null, rel.getFirstPerson());
+        if (newFam != null) newFam.children.add(rel.getLastPerson());
+        if (newFam == null && parentGender.equals("man")) this.families.add(new Family(new Person(parentGender), rel.getFirstPerson(), rel.getLastPerson()));
+        if (newFam == null && parentGender.equals("woman")) this.families.add(new Family(rel.getFirstPerson(), new Person(parentGender), rel.getLastPerson()));
+    }
+
+    private void insertChild(Relationship rel, String parentType) {
+        for(Relationship relationship : this.relationships) {
+            if (!(rel.getFirstPerson().equals(relationship.getFirstPerson())) && relationship.getLastPerson().equals(rel.getLastPerson()) && relationship.getRelationship().equals(parentType)) {
+                Family fam = findFamilyByPartners(rel.getFirstPerson(), relationship.getFirstPerson());
+                if (fam != null) {
+                    fam.children.add(relationship.getLastPerson());
+                    return;
                 }
-                //Create a family object with existing data
             }
-            Family.CreateNewIfPartners(relationships, families);
-            Family.insertChild(relationships, families);
+        }
+        insertChildToNullFamilies(rel, parentType);
+    }
 
-            //Insert families in person objects.
-            for(Person person : people) {
-                person.families.addAll(Family.addFamiliesToPerson(families, person));
-                System.out.println();
-                System.out.println("Families of " + person.getName() + " are: \n");
-                person.printFamilies();
-                System.out.println("-----------------------------------------------");
-            }
-
-            System.out.println("People");
-            System.out.println(people.toString());
-            System.out.println("________________________________________________________________\n");
-            System.out.println("Relationships");
-            System.out.println(relationships.toString());
-            System.out.println("________________________________________________________________\n");
-            System.out.println("Families");
-            System.out.println(families.toString());
-            System.out.println("________________________________________________________________\n");
-
-
-            ////////////SEARCHING RELATIONSHIPS////////////////////////////
-
-            System.out.println("Insert firstRelName");
-            Person personFirst = Person.findPerson(people, scanner.nextLine());
-            System.out.println("Insert lastRelName");
-            Person personLast = Person.findPerson(people, scanner.nextLine());
-
-            System.out.println("The relationship is:");
-//            Family.calcRelationship(families, personFirst, personLast);
-
-
-            //////////TXT GENERATE FILE////////////////////////////////
-            // Make a scanner to give a choice.
-            System.out.println("If you wanna export a TXT file with all names of this tree press true");
-            boolean exportFile = scanner.nextBoolean();
-            if(exportFile) exportTXT(people);
-
-        } catch (IOException e) {
-            System.out.println("\"Check the path or type of CSV file.\"");
-            e.printStackTrace();
+    public void checkForCompletedFamily() {
+        for (Relationship rel : this.relationships) {
+            if(rel.getRelationship().equals("mother"))
+                insertChild(rel, "father");
+            if(rel.getRelationship().equals("father"))
+                insertChild(rel, "mother");
         }
 
+    }
 
-        ///////////////GRAPHVIZ/////////////////////////////////////////
-//        Graph g = graph("Baratheon").directed()
-//                .graphAttr().with(Rank.dir(TOP_TO_BOTTOM))
-//                .nodeAttr().with(Font.name("Arial"))
-//                .linkAttr().with("class", "link-class")
-//                .with(
-//                        //
-//                );
-//
-//        Graphviz
-//                .fromGraph(g)
-//                .height(500)
-//                .render(Format.DOT).toFile(new File("./ex1.dot"));
-//
-//        Graphviz
-//                .fromGraph(g)
-//                .height(500)
-//                .render(Format.PNG).toFile(new File("./ex1.png"));
+    //Printers
+    public void printListOfPeople() {
+        System.out.println("People");
+        System.out.println(this.people.toString());
+        System.out.println("________________________________________________________________\n");
+    }
 
+    public void printListOfRelationships() {
+        System.out.println("Relationships");
+        System.out.println(this.relationships.toString());
+        System.out.println("________________________________________________________________\n");
+    }
 
+    public void printListOfFamilies() {
+        System.out.println("Families");
+        System.out.println(this.families.toString());
+        System.out.println("________________________________________________________________\n");
     }
 
 }

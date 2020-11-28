@@ -9,10 +9,11 @@ public class Person implements Comparable<Person> {
 
     Set<Family> families = new HashSet<>();
 
-    public Person() {
+    public Person(String gender) {
         this.name = "Unknown";
-        this.gender = "Unknown";
+        this.gender = gender;
     }
+
     public Person(String name, String gender) {
         this.name = name;
         this.gender = gender;
@@ -41,6 +42,7 @@ public class Person implements Comparable<Person> {
         return name;
     }
     public String getGender() { return gender; }
+    public Set<Family> getFamilies() { return families; }
 
     @Override
     //Alphabetic sorting
@@ -56,7 +58,15 @@ public class Person implements Comparable<Person> {
 
     public void printFamilies() {
         for(Family family: families) {
+            System.out.println();
+            System.out.println("Families of " + this.getName() + " are: \n");
+            System.out.println(family.toString());
+            System.out.println("-----------------------------------------------");
             System.out.println(family.toString());
         }
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
