@@ -10,7 +10,7 @@ public interface IBrowserGui {
         chooser.setDialogTitle(dialogTitle);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if(chooser.showOpenDialog(exportFile) == JFileChooser.APPROVE_OPTION) {
-            System.out.println("User chooce: " + chooser.getSelectedFile().getAbsolutePath());
+            System.out.println("User choose: " + chooser.getSelectedFile().getAbsolutePath());
         }
 
         return chooser.getSelectedFile().getAbsolutePath();

@@ -51,8 +51,6 @@ public class GraphViz implements IRelationshipsFinding{
         }
     }
     private static Graph addSpouse(Graph graph, Person firstPerson, Person lastPerson) {
-
-
             return graph.with(
                     node(firstPerson.getName()).with(Style.FILLED)
                             .link(to(node(lastPerson.getName()))).with(Style.FILLED)
@@ -62,29 +60,25 @@ public class GraphViz implements IRelationshipsFinding{
 
     // public static void main(String[] args) throws IOException {
     public void graphVizMethod() throws IOException {
-        Graph g = graph("example1").directed()
+        Graph g = graph("GraphViz").directed()
                 .graphAttr().with(Rank.dir(LEFT_TO_RIGHT)).nodeAttr().with(Font.name("Arial"))
                 .linkAttr().with("class", "link-class");
 
-        for(Relationship relationship : relationships) {
-
+        for (Relationship relationship : relationships) {
             g = addSpouse(g, relationship);
         }
-
 //        g = addByPerson(g, per);
+        String path = IBrowserGui.chooseFolderGui("export", "Where you wanna save your file.");
 
         guru.nidi.graphviz.engine.Graphviz
                 .fromGraph(g)
                 .height(500)
-                .render(Format.DOT).toFile(new File("src/output/ex1.dot"));
+                .render(Format.DOT).toFile(new File(path + "\\ex1.dot"));
 
         guru.nidi.graphviz.engine.Graphviz
                 .fromGraph(g)
                 .height(5000)
-                .render(Format.PNG).toFile(new File("src/output/ex1.png"));
-
-
-
+                .render(Format.PNG).toFile(new File(path + "\\ex1.png"));
     }
 
 }
