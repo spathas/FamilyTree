@@ -17,8 +17,14 @@ public class Family implements IRelationshipsFinding {
         this.children.add(child);
     }
 
+    public Person[] getParents() {
+        return parents;
+    }
 
-    // To String Object printing
+    public Set<Person> getChildren() {
+        return children;
+    }
+// To String Object printing
 
     private String printChildrenNames() {
         String child = "\n";

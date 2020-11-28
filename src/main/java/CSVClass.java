@@ -7,17 +7,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class CSVClass {
-
-//            String csvFile = "/home/cspathas/Desktop/BaratheonTreeWithRels.csv";
     String csvFile = IBrowserGui.chooseFileGui("Import CSV", "Choose your CSV file with data of family.");
-
-    public CSVClass() {
-
-    }
-
-    public CSVClass(String csvFile) {
-        this.csvFile = csvFile;
-    }
 
     void readFile(TreeSet<Person> people, ArrayList<Relationship> relationships) {
         try {
@@ -32,10 +22,8 @@ public class CSVClass {
                 if (line[line.length - 1].equals("") || line[line.length - 1] == null) {
                     String name = line[0];
                     String gender = line[1];
-
                     Person.createPerson(people, name, gender, lineCount);
                 } else {
-                    //Find people objects base on 2 names by CSV line and relationship between them.
                     Person firstPerson = Person.findPerson(people, line[0]);
                     Person lastPerson = Person.findPerson(people, line[2]);
                     String rel = line[1];
@@ -44,7 +32,6 @@ public class CSVClass {
                         System.out.println("There is a bad relationship in CSV file.\nPlease check your relationship stack.");
                         System.exit(-1);
                     } else {
-                        //Create a stack of all relationships
                         assert firstPerson != null && lastPerson != null;
                         relationships.add(new Relationship(firstPerson, rel, lastPerson));
 
@@ -62,7 +49,6 @@ public class CSVClass {
 
     static boolean checkRelationship(Person firstPerson, String relationship) {
         if( relationship.equals("father") || relationship.equals("mother") || relationship.equals("husband") || relationship.equals("wife") )
-            //Check for logical fail
             if( (relationship.equals("father") || relationship.equals("husband")) && firstPerson.getGender().equals("man") )
                 return true;
         return (relationship.equals("mother") || relationship.equals("wife")) && firstPerson.getGender().equals("woman");
@@ -71,7 +57,6 @@ public class CSVClass {
     static void exportTXT(TreeSet<Person> person) {
 
         try {
-//            String importPath = browserWindow()
             FileWriter myWriter = new FileWriter(
                     IBrowserGui.chooseFolderGui("Export TXT", "Where you wanna save your txt file.") + "\\names.txt");
             for(Person per : person) {

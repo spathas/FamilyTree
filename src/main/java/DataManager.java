@@ -1,27 +1,25 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.*;
 
 public class DataManager {
 
     //Instances
     TreeSet<Person> people = new TreeSet<>();
     ArrayList<Relationship> relationships = new ArrayList<>();
-    ArrayList<Family> families = new ArrayList<>();
+    Set<Family> families = new HashSet<>();
 
 
-    //Setters
-    public void setPeople(TreeSet<Person> people) {
-        this.people = people;
-    }
-
-    public void setRelationships(ArrayList<Relationship> relationships) {
-        this.relationships = relationships;
-    }
-
-    public void setFamilies(ArrayList<Family> families) {
-        this.families = families;
-    }
+//    //Setters
+//    public void setPeople(TreeSet<Person> people) {
+//        this.people = people;
+//    }
+//
+//    public void setRelationships(ArrayList<Relationship> relationships) {
+//        this.relationships = relationships;
+//    }
+//
+//    public void setFamilies(Set families) {
+//        this.families = families;
+//    }
 
     //Getters
     public TreeSet<Person> getPeople() {
@@ -32,7 +30,7 @@ public class DataManager {
         return relationships;
     }
 
-    public ArrayList<Family> getFamilies() {
+    public Set<Family> getFamilies() {
         return families;
     }
 
@@ -100,7 +98,6 @@ public class DataManager {
         if(nullPerson == null) {
             if (IRelationshipsFinding.translateGender(lastPerson) == 0) nullPerson = new Person("woman");
             if (IRelationshipsFinding.translateGender(lastPerson) == 1) nullPerson = new Person("man");
-
             int nullGender = IRelationshipsFinding.translateGender(nullPerson);
             int lastGender = IRelationshipsFinding.translateGender(lastPerson);
 

@@ -41,9 +41,6 @@ public class MainClass {
 
 
         ////////////SEARCHING RELATIONSHIPS////////////////////////////
-
-
-
 //        int count = 0;
 //
 //        while (count == 0) {
@@ -65,7 +62,6 @@ public class MainClass {
 
 
         //////////TXT GENERATE FILE////////////////////////////////
-//         Make a scanner to give a choice.
         System.out.println("If you wanna export a TXT file with all names of this tree press true");
         boolean exportFile = scanner.nextBoolean();
         if(exportFile) CSVClass.exportTXT(data.people);
