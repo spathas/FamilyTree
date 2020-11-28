@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class MainClass {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         CSVClass csvFile = new CSVClass();
@@ -73,7 +73,7 @@ public class MainClass {
         //////////GRAPH VIZ////////////////////////////////
 //        System.out.println("Insert a name for graph");
 //        Person personFirst = Person.findPerson(data.people, scanner.nextLine());
-        graph.graphVizMethod();
+//        graph.graphVizMethod();
 
     }
 }

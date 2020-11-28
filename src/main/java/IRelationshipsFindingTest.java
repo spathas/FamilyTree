@@ -149,7 +149,7 @@ class IRelationshipsFindingTest {
                 Person.findPerson(data.getPeople(), "Margaery Tyrell")));
         assertEquals("Unknown relationship", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Robert Baratheon"),
-                Person.findPerson(data.getPeople(), "Myrcella Baratheonv")));
+                Person.findPerson(data.getPeople(), "Myrcella Baratheon")));
         assertEquals("Unknown relationship", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Robert Baratheon"),
                 Person.findPerson(data.getPeople(), "Joffrey Baratheon")));
@@ -221,6 +221,7 @@ class IRelationshipsFindingTest {
         assertEquals("Father", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Stannis Baratheon"),
                 Person.findPerson(data.getPeople(), "Shireen Baratheon")));
+
         assertEquals("Uncle", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Stannis Baratheon"),
                 Person.findPerson(data.getPeople(), "Gendry")));
@@ -322,7 +323,7 @@ class IRelationshipsFindingTest {
         assertEquals("Unknown relationship", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Cersei Lannister"),
                 Person.findPerson(data.getPeople(), "Selyse Baratheon")));
-        assertEquals("Unknown relationship", IRelationshipsFinding.calcRelationship(
+        assertEquals("Aunt", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Cersei Lannister"),
                 Person.findPerson(data.getPeople(), "Shireen Baratheon")));
 
@@ -548,7 +549,7 @@ class IRelationshipsFindingTest {
         assertEquals("Daughter", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Shireen Baratheon"),
                 Person.findPerson(data.getPeople(), "Stannis Baratheon")));
-        assertEquals("Mother", IRelationshipsFinding.calcRelationship(
+        assertEquals("Daughter", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Shireen Baratheon"),
                 Person.findPerson(data.getPeople(), "Selyse Baratheon")));
         assertEquals("Niece", IRelationshipsFinding.calcRelationship(
@@ -563,10 +564,10 @@ class IRelationshipsFindingTest {
         assertEquals("Cousin", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Shireen Baratheon"),
                 Person.findPerson(data.getPeople(), "Gendry")));
-
-        assertEquals("Unknown relationship", IRelationshipsFinding.calcRelationship(
+        assertEquals("Niece", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Shireen Baratheon"),
                 Person.findPerson(data.getPeople(), "Cersei Lannister")));
+
         assertEquals("Unknown relationship", IRelationshipsFinding.calcRelationship(
                 Person.findPerson(data.getPeople(), "Shireen Baratheon"),
                 Person.findPerson(data.getPeople(), "Myrcella Baratheon")));
