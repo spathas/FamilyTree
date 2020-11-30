@@ -24,7 +24,6 @@ public class MainClass {
 
             String val = "";
 
-
             System.out.println("Choose functionality from menu.");
             System.out.println("1. Print all relationships from CSV file.");
             System.out.println("2. Print all people from CSV file.");
