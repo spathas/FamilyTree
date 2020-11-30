@@ -7,20 +7,6 @@ public class DataManager {
     ArrayList<Relationship> relationships = new ArrayList<>();
     Set<Family> families = new HashSet<>();
 
-
-//    //Setters
-//    public void setPeople(TreeSet<Person> people) {
-//        this.people = people;
-//    }
-//
-//    public void setRelationships(ArrayList<Relationship> relationships) {
-//        this.relationships = relationships;
-//    }
-//
-//    public void setFamilies(Set families) {
-//        this.families = families;
-//    }
-
     //Getters
     public TreeSet<Person> getPeople() {
         return people;
@@ -30,17 +16,11 @@ public class DataManager {
         return relationships;
     }
 
-    public Set<Family> getFamilies() {
-        return families;
-    }
-
     //Methods
-    private ArrayList<Family> addFamiliesToPerson(Person firstPerson) {
-        ArrayList<Family> fam = new ArrayList<>();
+    private HashSet<Family> addFamiliesToPerson(Person firstPerson) {
+        HashSet<Family> fam = new HashSet<>();
         for(Family family: this.families) {
-            int index = -1;
-            if(firstPerson.getGender().equals("man")) index = 0;
-            if(firstPerson.getGender().equals("woman")) index = 1;
+            int index = IRelationshipsFinding.translateGender(firstPerson);
 
             if(family.parents[index].getName().equals(firstPerson.getName())) {
                 fam.add(family);
@@ -55,7 +35,6 @@ public class DataManager {
     public void insertFamiliesToPerson() {
         for(Person person : this.getPeople()) {
             person.families.addAll(this.addFamiliesToPerson(person));
-//            person.printFamilies();
         }
     }
 

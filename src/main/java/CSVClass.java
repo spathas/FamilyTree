@@ -9,6 +9,7 @@ import java.util.TreeSet;
 public class CSVClass {
     String csvFile = IBrowserGui.chooseFileGui("Import CSV", "Choose your CSV file with data of family.");
 
+
     void readFile(TreeSet<Person> people, ArrayList<Relationship> relationships) {
         try {
 

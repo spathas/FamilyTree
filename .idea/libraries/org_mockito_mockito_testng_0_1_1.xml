@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="org.mockito:mockito-testng:0.1.1" type="repository">
+    <properties maven-id="org.mockito:mockito-testng:0.1.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-testng/0.1.1/mockito-testng-0.1.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-core/2.23.0/mockito-core-2.23.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.9.0/byte-buddy-1.9.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy-agent/1.9.0/byte-buddy-agent-1.9.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/2.6/objenesis-2.6.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.3.1/testng-6.3.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/beust/jcommander/1.12/jcommander-1.12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

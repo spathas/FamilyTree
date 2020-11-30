@@ -34,7 +34,7 @@ public class MainClass {
             System.out.println("6. Find the relationship between two deference people.");
             System.out.println("7. Export a txt file with all people.");
             System.out.println("8. Export dot file and graph from GraphViz for data.");
-            System.out.println("9. Export dot file and graph from GraphViz for a specific person.");
+//            System.out.println("9. Export dot file and graph from GraphViz for a specific person.");
             System.out.println("10. Exit from app. (Press exit or number of function)");
 
             System.out.println("\nEnter your choice.");
@@ -112,16 +112,6 @@ public class MainClass {
                         graph.graphVizMethod();
                     } catch (IOException e) {
                         System.out.println("There is an issue with GraphViz API.");
-                    }
-                    break;
-
-                case "9":
-                    System.out.println("Insert a name for graph");
-                    Person personGraph = Person.findPerson(data.people, scanner.nextLine());
-                    try {
-                        graph.graphVizMethodForPerson(personGraph);
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
                     break;
 

@@ -17,7 +17,7 @@ public interface IRelationshipsFinding {
                 if (isGrandchild(family, firstPerson, lastPerson, lastGender)) rel = "Grandson";
                 if (isGrandParent(family, firstPerson, lastPerson, firstGender)) rel = "Grandfather";
                 if (isUncles(family, firstPerson, lastPerson, firstGender)) rel = "Uncle";
-                if (isNephew(family, firstPerson, lastPerson, lastGender)) rel = "Nephew";
+                if (isNephew(firstPerson, lastPerson, lastGender)) rel = "Nephew";
                 if (isCousin(family, firstPerson, lastPerson)) rel = "Cousin";
             }
 
@@ -29,7 +29,7 @@ public interface IRelationshipsFinding {
                 if (isGrandchild(family, firstPerson, lastPerson, lastGender)) rel = "Granddaughter";
                 if (isGrandParent(family, firstPerson, lastPerson, firstGender)) rel = "Grandmother";
                 if (isUncles(family, firstPerson, lastPerson, firstGender)) rel = "Aunt";
-                if (isNephew(family, firstPerson, lastPerson, lastGender)) rel = "Niece";
+                if (isNephew(firstPerson, lastPerson, lastGender)) rel = "Niece";
                 if (isCousin(family, firstPerson, lastPerson)) rel = "Cousin";
             }
         }
@@ -95,7 +95,6 @@ public interface IRelationshipsFinding {
 
     static boolean isUncles(Family family, Person firstPerson, Person lastPerson, int firstGender) {
 
-        //Find partner of lastPerson obj.
         Person partner = findPartnerOf(firstPerson, firstGender);
         if(isParent(family, lastPerson, firstPerson, translateGender(lastPerson))) return false;
         if(!family.children.contains(lastPerson)) return false;
@@ -117,7 +116,7 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    static boolean isNephew(Family family, Person firstPerson, Person lastPerson, int lastGender) {
+    static boolean isNephew(Person firstPerson, Person lastPerson, int lastGender) {
 
         Person partner = findPartnerOf(lastPerson, lastGender);
 

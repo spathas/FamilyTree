@@ -5,7 +5,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PersonTest {
+class TestPerson {
     CSVClass csvFile = new CSVClass();
     DataManager data = new DataManager();
 
