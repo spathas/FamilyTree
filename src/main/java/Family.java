@@ -17,8 +17,13 @@ public class Family implements IRelationshipsFinding {
         this.children.add(child);
     }
 
-
-    // To String Object printing
+//    public Person[] getParents() {
+//        return parents;
+//    }
+//
+//    public Set<Person> getChildren() {
+//        return children;
+//    }
 
     private String printChildrenNames() {
         String child = "\n";
@@ -44,11 +49,3 @@ public class Family implements IRelationshipsFinding {
                 "\nChildren: " + printChildrenNames() + "\n\n";
     }
 }
-
-    //    public static Family findFamilyByParents(ArrayList<Family> families, Person firstPerson, Person lastPerson) {
-//        for(Family family: families) {
-//            if(isParent(family, firstPerson, lastPerson))
-//                return family;
-//        }
-//        return null;
-//    }

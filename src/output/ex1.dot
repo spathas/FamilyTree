@@ -1,0 +1,8 @@
+digraph "GraphVizFor" {
+graph ["rankdir"="LR"]
+node ["fontname"="Arial"]
+edge ["class"="link-class"]
+"Gendry" ["style"="filled"]
+"Gendry" -> "Unknown"
+"Gendry" -> "Robert Baratheon"
+}
