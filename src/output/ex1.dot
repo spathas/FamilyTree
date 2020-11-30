@@ -1,28 +1,38 @@
 digraph "example1" {
-graph ["rankdir"="LR"]
-node ["fontname"="Arial"]
+graph ["rankdir"="TB"]
+node ["fontname"="Pristina","shape"="pentagon","color"="gold","style"="solid"]
 edge ["class"="link-class"]
-"Steffon Baratheon" ["style"="filled"]
-"Cassana Estermont" ["style"="filled"]
-"Robert Baratheon" ["style"="filled"]
-"Renly Baratheon" ["style"="filled"]
-"Stannis Baratheon" ["style"="filled"]
-"Selyse Baratheon" ["style"="filled"]
-"Cersei Lannister" ["style"="filled"]
-"Steffon Baratheon" -> "Stannis Baratheon"
-"Steffon Baratheon" -> "Renly Baratheon"
-"Steffon Baratheon" -> "Robert Baratheon"
-"Steffon Baratheon" -> "Cassana Estermont"
-"Cassana Estermont" -> "Stannis Baratheon"
-"Cassana Estermont" -> "Renly Baratheon"
-"Cassana Estermont" -> "Robert Baratheon"
-"Robert Baratheon" -> "Gendry"
-"Robert Baratheon" -> "Cersei Lannister"
-"Renly Baratheon" -> "Margaery Tyrell"
-"Stannis Baratheon" -> "Shireen Baratheon"
-"Stannis Baratheon" -> "Selyse Baratheon"
-"Selyse Baratheon" -> "Shireen Baratheon"
-"Cersei Lannister" -> "Tommen Baratheon"
-"Cersei Lannister" -> "Myrcella Baratheon"
-"Cersei Lannister" -> "Joffrey Baratheon"
+"Steffon Baratheon" ["style"="filled","color"="lightblue2","shape"="doubleoctagon"]
+"Cassana Estermont" ["style"="filled","color"="antiquewhite2","shape"="hexagon"]
+"Robert Baratheon" ["style"="filled","color"="lavender","shape"="diamond"]
+"Renly Baratheon" ["color"="lavender","shape"="diamond"]
+"Stannis Baratheon" ["style"="filled","color"="lavender","shape"="diamond"]
+"Margaery Tyrell" ["color"="antiquewhite2","shape"="hexagon"]
+"Selyse Baratheon" ["style"="filled","color"="antiquewhite2","shape"="hexagon"]
+"Shireen Baratheon" ["shape"="diamond","color"="lavender"]
+"Cersei Lannister" ["style"="filled","color"="antiquewhite2","shape"="hexagon"]
+"Gendry" ["shape"="diamond","color"="lavender"]
+"Joffrey Baratheon" ["shape"="diamond","color"="lavender"]
+"Myrcella Baratheon" ["shape"="diamond","color"="lavender"]
+"Tommen Baratheon" ["shape"="diamond","color"="lavender"]
+"Steffon Baratheon Family" -> "Cassana Estermont" ["color"="violetred","style"="bold","label"="couple"]
+"Steffon Baratheon Family" -> "Steffon Baratheon"
+"Steffon Baratheon" -> "Stannis Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Steffon Baratheon" -> "Renly Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Steffon Baratheon" -> "Robert Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Cassana Estermont" -> "Stannis Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Cassana Estermont" -> "Renly Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Cassana Estermont" -> "Robert Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Robert Baratheon" -> "Gendry" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Stannis Baratheon" -> "Shireen Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Renly Baratheon Family" -> "Margaery Tyrell" ["color"="violetred","style"="bold","label"="couple"]
+"Renly Baratheon Family" -> "Renly Baratheon"
+"Stannis Baratheon Family" -> "Selyse Baratheon" ["color"="violetred","style"="bold","label"="couple"]
+"Stannis Baratheon Family" -> "Stannis Baratheon"
+"Selyse Baratheon" -> "Shireen Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Robert Baratheon Family" -> "Cersei Lannister" ["color"="violetred","style"="bold","label"="couple"]
+"Robert Baratheon Family" -> "Robert Baratheon"
+"Cersei Lannister" -> "Tommen Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Cersei Lannister" -> "Myrcella Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
+"Cersei Lannister" -> "Joffrey Baratheon" ["color"="blue1","style"="dotted","arrowhead"="vee","label"="child"]
 }
