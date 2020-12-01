@@ -7,20 +7,6 @@ public class DataManager {
     ArrayList<Relationship> relationships = new ArrayList<>();
     Set<Family> families = new HashSet<>();
 
-
-//    //Setters
-//    public void setPeople(TreeSet<Person> people) {
-//        this.people = people;
-//    }
-//
-//    public void setRelationships(ArrayList<Relationship> relationships) {
-//        this.relationships = relationships;
-//    }
-//
-//    public void setFamilies(Set families) {
-//        this.families = families;
-//    }
-
     //Getters
     public TreeSet<Person> getPeople() {
         return people;
@@ -55,7 +41,6 @@ public class DataManager {
     public void insertFamiliesToPerson() {
         for(Person person : this.getPeople()) {
             person.families.addAll(this.addFamiliesToPerson(person));
-//            person.printFamilies();
         }
     }
 

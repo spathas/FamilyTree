@@ -36,8 +36,6 @@ public class CSVClass {
                         relationships.add(new Relationship(firstPerson, rel, lastPerson));
 
                     }
-
-
                 }
             }
 

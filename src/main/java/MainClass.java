@@ -114,16 +114,6 @@ public class MainClass {
                     }
                     break;
 
-                case "9":
-                    System.out.println("Insert a name for graph");
-                    Person personGraph = Person.findPerson(data.people, scanner.nextLine());
-                    try {
-                        graph.graphVizMethodForPerson(personGraph);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-
                 case "10":
                     countMain = 1;
                     break;
