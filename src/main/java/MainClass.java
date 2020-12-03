@@ -17,7 +17,7 @@ public class MainClass {
         //Add those families to every person
         data.insertFamiliesToPerson();
         //Generate the graph
-//        GraphViz graph = new GraphViz(data.getRelationships());
+        GraphViz graph = new GraphViz(data.getRelationships());
 
         int countMain = 0;
         while (countMain == 0) {
@@ -33,8 +33,7 @@ public class MainClass {
             System.out.println("6. Find the relationship between two deference people.");
             System.out.println("7. Export a txt file with all people.");
             System.out.println("8. Export dot file and graph from GraphViz for data.");
-            System.out.println("9. Export dot file and graph from GraphViz for a specific person.");
-            System.out.println("10. Exit from app. (Press exit or number of function)");
+            System.out.println("9. Exit from app. (Press exit or number of function)");
 
             System.out.println("\nEnter your choice.");
             val = scanner.nextLine();
@@ -107,11 +106,11 @@ public class MainClass {
                     break;
 
                 case "8":
-//                    try {
-//                        graph.graphVizMethod();
-//                    } catch (IOException e) {
-//                        System.out.println("There is an issue with GraphViz API.");
-//                    }
+                    try {
+                        graph.graphVizMethod();
+                    } catch (IOException e) {
+                        System.out.println("There is an issue with GraphViz API.");
+                    }
                     break;
 
                 case "10":

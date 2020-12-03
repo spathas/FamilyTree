@@ -29,7 +29,7 @@ public class CSVClass {
                     String rel = line[1];
 
                     if (!checkRelationship(firstPerson, rel)) {
-                        System.out.println("There is a bad relationship in CSV file.\nPlease check your relationship stack.");
+                        System.out.println("There is a bad relationship with CSV file.\nPlease check your relationship at line." + lineCount);
                         System.exit(-1);
                     } else {
                         assert firstPerson != null && lastPerson != null;
