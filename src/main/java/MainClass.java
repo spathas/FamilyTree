@@ -113,7 +113,7 @@ public class MainClass {
                     }
                     break;
 
-                case "10":
+                case "9":
                     countMain = 1;
                     break;
 
