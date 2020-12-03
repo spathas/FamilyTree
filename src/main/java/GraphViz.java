@@ -19,9 +19,8 @@ public class GraphViz implements IRelationshipsFinding {
     }
 
     private static Graph addRelative(Graph graph, Relationship rel) {
-        Boolean isCoupleRelationship = rel.getRelationship().equals("husband") || rel.getRelationship().equals("Wife");
 
-        if (isCoupleRelationship) {
+        if (rel.getRelationship().equals("husband") || rel.getRelationship().equals("Wife")) {
             return addSpouse(graph, rel);
         }
         else {
@@ -94,11 +93,15 @@ public class GraphViz implements IRelationshipsFinding {
         guru.nidi.graphviz.engine.Graphviz
                 .fromGraph(g)
                 .height(500)
-                .render(Format.DOT).toFile(new File("src/output/ex1.dot"));
+                .render(Format.DOT).toFile(new File(
+                        IBrowserGui.chooseFileGui("Import CSV", "Choose a direction to save you dot file.")
+                            ));
 
         guru.nidi.graphviz.engine.Graphviz
                 .fromGraph(g)
                 .height(800)
-                .render(Format.PNG).toFile(new File("src/output/ex1.png"));
+                .render(Format.PNG).toFile(new File(
+                IBrowserGui.chooseFileGui("Import CSV", "Choose a direction to save your GraphViz image.")
+        ));
     }
 }

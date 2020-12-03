@@ -17,7 +17,7 @@ public class MainClass {
         //Add those families to every person
         data.insertFamiliesToPerson();
         //Generate the graph
-//        GraphViz graph = new GraphViz(data.getRelationships());
+        GraphViz graph = new GraphViz(data.getRelationships());
 
         int countMain = 0;
         while (countMain == 0) {
@@ -107,11 +107,11 @@ public class MainClass {
                     break;
 
                 case "8":
-//                    try {
-//                        graph.graphVizMethod();
-//                    } catch (IOException e) {
-//                        System.out.println("There is an issue with GraphViz API.");
-//                    }
+                    try {
+                        graph.graphVizMethod();
+                    } catch (IOException e) {
+                        System.out.println("There is an issue with GraphViz API.");
+                    }
                     break;
 
                 case "10":
