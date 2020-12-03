@@ -17,7 +17,7 @@ public interface IRelationshipsFinding {
                 if (isGrandchild(family, firstPerson, lastPerson, lastGender)) rel = "Grandson";
                 if (isGrandParent(family, firstPerson, lastPerson, firstGender)) rel = "Grandfather";
                 if (isUncles(family, firstPerson, lastPerson, firstGender)) rel = "Uncle";
-                if (isNephew(family, firstPerson, lastPerson, lastGender)) rel = "Nephew";
+                if (isNephew(firstPerson, lastPerson, lastGender)) rel = "Nephew";
                 if (isCousin(family, firstPerson, lastPerson)) rel = "Cousin";
             }
 
@@ -29,7 +29,7 @@ public interface IRelationshipsFinding {
                 if (isGrandchild(family, firstPerson, lastPerson, lastGender)) rel = "Granddaughter";
                 if (isGrandParent(family, firstPerson, lastPerson, firstGender)) rel = "Grandmother";
                 if (isUncles(family, firstPerson, lastPerson, firstGender)) rel = "Aunt";
-                if (isNephew(family, firstPerson, lastPerson, lastGender)) rel = "Niece";
+                if (isNephew(firstPerson, lastPerson, lastGender)) rel = "Niece";
                 if (isCousin(family, firstPerson, lastPerson)) rel = "Cousin";
             }
         }
@@ -56,7 +56,6 @@ public interface IRelationshipsFinding {
             int childGender = translateGender(child);
 
             for (Family pFamily : child.getFamilies()) {
-                //Check if child (of firstPerson) is parent of lastPerson.
                 if(isParent(pFamily, child, firstPerson, childGender))
                     return true;
             }
@@ -77,53 +76,52 @@ public interface IRelationshipsFinding {
         return false;
     }
 
-    static boolean isUncles(Family family, Person firstPerson, Person lastPerson, int firstGender) {
+    private static boolean loopForUncles(Family family, Person firstPerson, Person lastPerson) {
 
-        //Find partner of lastPerson obj.
-        Person partner = findPartnerOf(firstPerson, firstGender);
+        for (Person parent : family.parents) {
+                for (Family pFamily : parent.getFamilies()) {
+                    if (pFamily.children.contains(parent)) {
+                        for (Person brother : pFamily.children) {
+                            if ((!brother.equals(parent) && (brother.equals(lastPerson)) &&
+                                    isParent(family, parent, firstPerson, translateGender(parent)))) return true;
+                        }
+                    }
+                }
 
-        if(!family.children.contains(lastPerson)) return false;
-
-        for(Person parent: family.parents) {
-            for (Family pFamily : parent.getFamilies()) {
-                if (isBrother(pFamily, parent, firstPerson)) return true;
-                if (isBrother(pFamily, parent, partner)) return true;
-            }
         }
         return false;
     }
 
-    static boolean isNephew(Family family, Person firstPerson, Person lastPerson, int lastGender) {
+    static boolean isUncles(Family family, Person firstPerson, Person lastPerson, int firstGender) {
 
-        for(Family fFamily: lastPerson.getFamilies()) { if(isParent(fFamily, lastPerson, firstPerson, lastGender)) return false; }
+        Person partner = findPartnerOf(firstPerson, firstGender);
+        if(isParent(family, lastPerson, firstPerson, translateGender(lastPerson))) return false;
+        if(!family.children.contains(lastPerson)) return false;
+
+        if (loopForUncles(family, lastPerson, firstPerson)) return true;
+        return loopForUncles(family, lastPerson, partner);
+    }
+
+    private static boolean loopForNephews(Person firstPerson, Person lastPerson) {
+
+        for(Family families : lastPerson.getFamilies()) {
+            if(isParent(families, firstPerson, lastPerson, translateGender(firstPerson))) return false;
+            if(!families.children.contains(lastPerson)) return false;
+
+            if (loopForUncles(families, lastPerson, firstPerson)) return true;
+            if (loopForUncles(families, lastPerson, firstPerson)) return true;
+
+        }
+        return false;
+    }
+
+    static boolean isNephew(Person firstPerson, Person lastPerson, int lastGender) {
 
         Person partner = findPartnerOf(lastPerson, lastGender);
 
-        if (family.children.contains(lastPerson)) {
-            for (Person brother : family.children) {
-                int childGender = translateGender(brother);
-
-                for (Family bFamily : brother.getFamilies()) {
-                    if (isParent(bFamily, brother, firstPerson, childGender)) return true;
-                }
-            }
-        }
-
-        if(partner == null) return false;
-
-        for (Family pFamily: partner.getFamilies()) {
-            if (family.children.contains(partner)) {
-                for (Person pBrother : pFamily.children) {
-                    int childGender = translateGender(pBrother);
-
-                    for (Family bFamily : pBrother.getFamilies()) {
-                        if (isParent(bFamily, pBrother, firstPerson, childGender)) return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        if (loopForNephews(lastPerson, firstPerson)) return true;
+        if (partner == null) return false;
+        return loopForNephews(partner, firstPerson);
     }
 
     static boolean isCousin(Family family, Person firstPerson, Person lastPerson) {
