@@ -100,9 +100,7 @@ public class MainClass {
 
                 case "7":
                     //////////TXT GENERATE FILE////////////////////////////////
-                    System.out.println("If you wanna export a TXT file with all names of this tree press true");
-                    boolean exportFile = scanner.nextBoolean();
-                    if (exportFile) CSVClass.exportTXT(data.people);
+                    CSVClass.exportTXT(data.people);
                     break;
 
                 case "8":

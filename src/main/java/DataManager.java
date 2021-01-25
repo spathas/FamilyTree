@@ -16,10 +16,6 @@ public class DataManager {
         return relationships;
     }
 
-    public Set<Family> getFamilies() {
-        return families;
-    }
-
     //Methods
     private ArrayList<Family> addFamiliesToPerson(Person firstPerson) {
         ArrayList<Family> fam = new ArrayList<>();
