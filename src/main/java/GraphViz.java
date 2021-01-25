@@ -14,6 +14,7 @@ public class GraphViz implements IRelationshipsFinding {
 
     ArrayList<Relationship> relationships;
 
+
     public GraphViz(ArrayList<Relationship> relationships) {
         this.relationships = relationships;
     }
@@ -66,23 +67,7 @@ public class GraphViz implements IRelationshipsFinding {
                                                         Color.LIGHTBLUE2)
                                         )
                                 ),
-                        node(rel.getFirstPerson().getName() + " Family")
-                                .link(
-                                        to(
-                                                node(
-                                                    rel.lastPerson.getName())
-                                                    .with(Color.ANTIQUEWHITE2)
-                                                        .with(Shape.HEXAGON)
-                                )
-                                        .with(
-                                                Color.VIOLETRED,
-                                                Style.BOLD,
-                                                Label.of("couple")
-                                        ))
-                                                        .with(
-                                                                Color.LIGHTBLUE2)
-                                        )
-                                ),
+
                         node(rel.getFirstPerson().getName() + " Family")
                                 .link(to(node(
                                         rel.lastPerson.getName())
@@ -97,6 +82,8 @@ public class GraphViz implements IRelationshipsFinding {
 
                 );
     }
+
+
 
     public void graphVizMethod() throws IOException {
         Graph g = graph("example1").directed()
